@@ -161,6 +161,43 @@
     });
   }
 
+  /* ---------- Selected Work: pinned horizontal scroll ---------- */
+  function initHorizontalWork() {
+    const section = $(".hwork");
+    if (!section) return;
+    const track = $(".hwork__track", section);
+    if (!track) return;
+    const mq = window.matchMedia("(min-width: 820px)");
+    let active = false, maxX = 0;
+
+    function setHeight() {
+      maxX = Math.max(0, track.scrollWidth - window.innerWidth);
+      section.style.height = (maxX + window.innerHeight) + "px";
+      if (lenis) lenis.resize();
+    }
+    function update() {
+      if (!active) return;
+      const top = section.getBoundingClientRect().top;
+      const total = section.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(Math.max(-top / total, 0), 1) : 0;
+      track.style.transform = `translate3d(${(-progress * maxX).toFixed(1)}px,0,0)`;
+    }
+    function evaluate() {
+      const shouldPin = mq.matches && !reduceMotion;
+      if (shouldPin && !active) { active = true; section.classList.remove("hwork--native"); setHeight(); }
+      else if (!shouldPin && (active || !section.classList.contains("hwork--native"))) {
+        active = false; section.classList.add("hwork--native"); section.style.height = ""; track.style.transform = "";
+      }
+      update();
+    }
+    evaluate();
+    window.addEventListener("scroll", update, { passive: true });
+    if (lenis) lenis.on("scroll", update);
+    window.addEventListener("resize", () => { if (active) setHeight(); evaluate(); });
+    window.addEventListener("load", () => { if (active) { setHeight(); update(); } });
+    if (mq.addEventListener) mq.addEventListener("change", evaluate);
+  }
+
   /* ---------- Magnetic hover (award-style micro-interaction) ---------- */
   function initMagnetic() {
     if (!finePointer || reduceMotion) return;
@@ -308,6 +345,7 @@
     initManifesto();
     initTaglines();
     initParallax();
+    initHorizontalWork();
   });
 
   // Failsafe: if preloader script timing misses, reveal hero after load

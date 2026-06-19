@@ -536,19 +536,34 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
 @media (max-width:680px){ .services__list { grid-template-columns: 1fr; gap: 0.4rem; } }
 
 /* =========================================================
-   INDEX GRID
+   SELECTED WORK — horizontal-scroll gallery
+   Vertical scroll drives the track sideways while the section is pinned.
    ========================================================= */
-.index { max-width: var(--maxw); margin: 0 auto; padding: clamp(3rem,7vw,7rem) var(--pad); }
-.index__head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: clamp(2rem,5vw,4rem); }
-.index__year { font-size:.74rem; letter-spacing:.24em; text-transform:uppercase; color: var(--text-dim); }
-.index__grid { display:grid; grid-template-columns: repeat(3,1fr); gap: clamp(1rem,2vw,1.6rem); }
-.tile { position:relative; aspect-ratio: 3/4; border-radius:3px; overflow:hidden; display:flex; align-items:flex-end; }
-.tile__art { position:absolute; inset:0; transform: scale(1.03); transition: transform 1.4s var(--ease), filter .6s; filter: saturate(.9) brightness(.85); }
-.tile:hover .tile__art { transform: scale(1.1); filter: saturate(1.1) brightness(1); }
-.tile__meta { position:relative; z-index:2; padding: clamp(1rem,2vw,1.6rem); display:flex; flex-direction:column; gap:.2rem; width:100%;
-  background: linear-gradient(0deg, rgba(7,7,7,0.85), transparent); }
-.tile__name { font-family: var(--serif); font-size: clamp(1.1rem,1.6vw,1.5rem); color: var(--sand); }
-.tile__cat { font-size:.64rem; letter-spacing:.26em; text-transform:uppercase; color: var(--gold); }
+.hwork { position: relative; }
+.hwork__pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+.hwork__track { display: flex; align-items: center; gap: clamp(1.2rem,2.4vw,2.4rem); padding-inline: var(--pad); will-change: transform; }
+
+.hwork__intro { flex: 0 0 auto; width: min(78vw, 440px); padding-right: clamp(1.5rem,4vw,4rem); display: flex; flex-direction: column; gap: 1.4rem; }
+.hwork__title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem,6vw,4.6rem); line-height: 1.02; letter-spacing: 0.01em; }
+.hwork__hint { display: inline-flex; align-items: center; gap: .8rem; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--text-dim); }
+.hwork__hint-line { width: 46px; height: 1px; background: var(--gold); position: relative; overflow: hidden; }
+.hwork__hint-line::after { content:""; position:absolute; inset:0; width:40%; background: var(--bg); mix-blend-mode: difference; animation: scrollLine 2.4s var(--ease-2) infinite; }
+
+.hcard { position: relative; flex: 0 0 auto; width: clamp(258px, 32vw, 440px); aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; box-shadow: 0 30px 90px rgba(0,0,0,0.45); }
+.hcard__art { position: absolute; inset: 0; transform: scale(1.04); transition: transform 1.2s var(--ease), filter .6s; filter: saturate(.92) brightness(.82); }
+.hcard:hover .hcard__art { transform: scale(1.12); filter: saturate(1.08) brightness(1); }
+.hcard::after { content:""; position:absolute; left:0; right:0; bottom:0; top:42%; z-index:1; pointer-events:none;
+  background: linear-gradient(0deg, rgba(7,7,7,0.92), rgba(7,7,7,0.28) 58%, transparent); }
+.hcard__cat { position:relative; z-index:2; padding: 0 clamp(1rem,2vw,1.6rem) .45rem; font-size:.64rem; letter-spacing:.26em; text-transform:uppercase; color: var(--gold); }
+.hcard__name { position:relative; z-index:2; padding: 0 clamp(1rem,2vw,1.6rem) clamp(1.1rem,2vw,1.6rem); font-family: var(--serif); font-size: clamp(1.15rem,1.7vw,1.6rem); color: var(--sand); }
+
+.hwork__end { position: relative; flex: 0 0 auto; width: clamp(210px,24vw,300px); aspect-ratio: 3/4; border: 1px solid var(--line); border-radius: 4px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.3rem; text-align: center;
+  font-size: .76rem; letter-spacing: .22em; text-transform: uppercase; color: var(--text); transition: background .5s var(--ease); }
+.hwork__end:hover { background: linear-gradient(160deg, rgba(212,163,97,0.07), transparent 70%); }
+.hwork__end-eclipse { width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle, transparent 40%, var(--gold) 50%, var(--gold-soft) 55%, transparent 74%); }
+.hwork__end-arrow { color: var(--gold); transition: transform .4s var(--ease); }
+.hwork__end:hover .hwork__end-arrow { transform: translateX(8px); }
 .tile__art--a { background: linear-gradient(155deg,#2c1f14,#120d08), radial-gradient(70% 60% at 70% 20%, rgba(212,163,97,.5), transparent 60%); }
 .tile__art--b { background: linear-gradient(155deg,#1d2528,#0c0d0e), radial-gradient(70% 60% at 30% 25%, rgba(231,196,139,.4), transparent 60%); }
 .tile__art--c { background: linear-gradient(155deg,#241c12,#0d0b08), radial-gradient(50% 50% at 50% 40%, rgba(231,196,139,.55), transparent 55%); }
@@ -556,8 +571,17 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
 .tile__art--e { background: linear-gradient(155deg,#16201f,#0a0c0c), radial-gradient(70% 60% at 80% 30%, rgba(63,106,111,.55), transparent 60%); }
 .tile__art--f { background: linear-gradient(155deg,#221a13,#0c0b09), radial-gradient(60% 60% at 30% 30%, rgba(212,163,97,.45), transparent 55%); }
 .tile__art--a, .tile__art--b, .tile__art--c, .tile__art--d, .tile__art--e, .tile__art--f { background-blend-mode: screen; }
-@media (max-width: 900px){ .index__grid { grid-template-columns: repeat(2,1fr);} }
-@media (max-width: 560px){ .index__grid { grid-template-columns: 1fr;} }
+
+/* Native fallback (mobile / reduced-motion / no-JS): horizontal swipe, no pin */
+.hwork--native .hwork__pin { position: static; height: auto; overflow-x: auto; overflow-y: hidden;
+  padding-block: clamp(3rem,9vw,6rem); scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.hwork--native .hwork__pin::-webkit-scrollbar { display: none; }
+.hwork--native .hwork__track { transform: none !important; }
+.hwork--native .hcard, .hwork--native .hwork__end { scroll-snap-align: center; }
+.hwork--native .hwork__intro { width: min(80vw, 360px); }
+@media (max-width: 680px) {
+  .hwork--native .hcard { width: clamp(220px, 72vw, 300px); }
+}
 
 /* =========================================================
    MARQUEE
