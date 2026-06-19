@@ -1,0 +1,28 @@
+{
+  "$comment": "CodeGraph knowledge-graph MCP server is registered in .mcp.json. These entries auto-allow its read-only query tools and make sure the CLI is installed and the project is indexed at the start of every session.",
+  "permissions": {
+    "allow": [
+      "mcp__codegraph__codegraph_search",
+      "mcp__codegraph__codegraph_context",
+      "mcp__codegraph__codegraph_explore",
+      "mcp__codegraph__codegraph_node",
+      "mcp__codegraph__codegraph_callers",
+      "mcp__codegraph__codegraph_callees",
+      "mcp__codegraph__codegraph_impact",
+      "mcp__codegraph__codegraph_status",
+      "mcp__codegraph__codegraph_files"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v codegraph >/dev/null 2>&1 || npm install -g @colbymchenry/codegraph >/dev/null 2>&1 || true; [ -f .codegraph/codegraph.db ] && codegraph sync >/dev/null 2>&1 || codegraph init >/dev/null 2>&1 || true"
+          }
+        ]
+      }
+    ]
+  }
+}
