@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-theme-pref="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House of Echoes — UI Component Kit</title>
+  <meta name="description" content="Frosted liquid-glass UI component library for House of Echoes." />
+
+  <!-- Apply theme before paint (no FOUC) -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("hoe-theme") || "dark";
+        var resolved = t;
+        if (t === "system") {
+          resolved = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", resolved);
+        document.documentElement.setAttribute("data-theme-pref", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Sacramento&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+</head>
+<body class="kit-body">
+  <!-- film texture overlays (shared with main site) -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="filmfx" aria-hidden="true"></div>
+
+  <main class="kit">
+    <!-- Header -->
+    <header class="kit__head">
+      <p class="kit__label" style="margin-bottom:.4rem;">House of Echoes · Design System</p>
+      <h1 class="kit__title">Liquid&nbsp;glass<br />component&nbsp;kit</h1>
+      <p class="kit__lead">
+        A frosted, light-aware UI library distilled from the brand —
+        warm golden-hour flares, teal-shadow glow rims, and recessed glass
+        surfaces. Every component reads from the same theme tokens as the site,
+        so it flips with light / dark automatically. Try the switch below.
+      </p>
+      <div class="kit__row" style="margin-top:.4rem;">
+        <button type="button" class="ui-switch" id="themeSwitch" role="switch" aria-checked="true" aria-label="Toggle light or dark theme">
+          <span class="ui-switch__thumb" aria-hidden="true"></span>
+          <span class="ui-switch__opt ui-switch__opt--on">DARK</span>
+          <span class="ui-switch__opt ui-switch__opt--off">LIGHT</span>
+        </button>
+        <a class="ui-btn ui-btn--ghost" href="index.html"><span>← Back to site</span></a>
+      </div>
+    </header>
+
+    <!-- Buttons -->
+    <section class="kit__section">
+      <p class="kit__label">01 · Buttons</p>
+      <div class="kit__row kit__warm">
+        <button type="button" class="ui-btn"><span>Primary action</span></button>
+        <button type="button" class="ui-btn ui-btn--ghost"><span>Ghost button</span></button>
+        <button type="button" class="ui-btn" disabled style="opacity:.45;pointer-events:none;"><span>Disabled</span></button>
+      </div>
+    </section>
+
+    <!-- Inputs & toggle -->
+    <section class="kit__section">
+      <p class="kit__label">02 · Inputs &amp; toggle</p>
+      <div class="kit__row" style="gap:1.8rem;">
+        <input class="ui-input" type="text" placeholder="Your name" aria-label="Your name" />
+        <input class="ui-input" type="email" placeholder="hello@studio.com" aria-label="Email" />
+        <button type="button" class="ui-switch" role="switch" aria-checked="true" aria-label="Sample on/off toggle" data-demo-switch>
+          <span class="ui-switch__thumb" aria-hidden="true"></span>
+          <span class="ui-switch__opt ui-switch__opt--on">ON</span>
+          <span class="ui-switch__opt ui-switch__opt--off">OFF</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Metric chips -->
+    <section class="kit__section">
+      <p class="kit__label">03 · Metric chips</p>
+      <div class="kit__row">
+        <div class="ui-chip"><span class="ui-chip__num">98%</span><span class="ui-chip__label">Delivery</span></div>
+        <div class="ui-chip"><span class="ui-chip__num">14.2s</span><span class="ui-chip__label">Avg shot</span></div>
+        <div class="ui-chip"><span class="ui-chip__num">4K</span><span class="ui-chip__label">Master</span></div>
+        <div class="ui-chip"><span class="ui-chip__num">42</span><span class="ui-chip__label">Films</span></div>
+      </div>
+    </section>
+
+    <!-- Glass hero card -->
+    <section class="kit__section">
+      <p class="kit__label">04 · Glass hero card</p>
+      <div class="kit__row">
+        <article class="ui-card">
+          <span class="ui-card__mark" aria-hidden="true"></span>
+          <h2 class="ui-card__title">House of Echoes</h2>
+          <p class="ui-card__desc">
+            Cinematic films for brands that prefer to be remembered.
+            We chase the light that remains — the quiet frame after the cut.
+          </p>
+          <div class="kit__row" style="margin-top:2rem;">
+            <button type="button" class="ui-btn"><span>View work</span></button>
+            <button type="button" class="ui-btn ui-btn--ghost"><span>Enquire</span></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Feature cards trio -->
+    <section class="kit__section">
+      <p class="kit__label">05 · Feature cards</p>
+      <div class="ui-features">
+        <span class="brackets" aria-hidden="true"></span>
+        <div class="ui-feature">
+          <div class="ui-feature__icon" aria-hidden="true">◑</div>
+          <h3 class="ui-feature__title">Dashboard</h3>
+          <p class="ui-feature__desc">Every project, frame and deliverable in one calm, glass-clear view.</p>
+        </div>
+        <div class="ui-feature">
+          <div class="ui-feature__icon" aria-hidden="true">▦</div>
+          <h3 class="ui-feature__title">Film vault</h3>
+          <p class="ui-feature__desc">4K masters and selects, archived and ready to license in seconds.</p>
+        </div>
+        <div class="ui-feature">
+          <div class="ui-feature__icon" aria-hidden="true">◎</div>
+          <h3 class="ui-feature__title">Echoes</h3>
+          <p class="ui-feature__desc">The light that remains — reactions, reach and the afterglow of each release.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel / sidebar nav -->
+    <section class="kit__section">
+      <p class="kit__label">06 · Panel &amp; navigation</p>
+      <div class="kit__row" style="align-items:stretch;">
+        <nav class="ui-panel" style="width:min(100%,280px);" aria-label="Sample sidebar">
+          <div class="ui-nav">
+            <a href="#" class="is-active"><span class="dot"></span>Overview</a>
+            <a href="#"><span class="dot"></span>Scenes</a>
+            <a href="#"><span class="dot"></span>Film vault</a>
+            <a href="#"><span class="dot"></span>Echoes</a>
+            <a href="#"><span class="dot"></span>Settings</a>
+          </div>
+        </nav>
+        <div class="ui-panel" style="flex:1;min-width:260px;display:flex;flex-direction:column;gap:1.2rem;justify-content:center;">
+          <div class="kit__row">
+            <div class="ui-chip"><span class="ui-chip__num">12</span><span class="ui-chip__label">Active</span></div>
+            <div class="ui-chip"><span class="ui-chip__num">3</span><span class="ui-chip__label">In review</span></div>
+            <div class="ui-chip"><span class="ui-chip__num">98%</span><span class="ui-chip__label">On time</span></div>
+          </div>
+          <input class="ui-input" type="text" placeholder="Search the vault…" aria-label="Search" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Theme switch — flips the whole page + persists, mirrors site behaviour.
+    (function () {
+      var root = document.documentElement;
+      var sw = document.getElementById("themeSwitch");
+      function setTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        root.setAttribute("data-theme-pref", theme);
+        try { localStorage.setItem("hoe-theme", theme); } catch (e) {}
+        if (sw) sw.setAttribute("aria-checked", theme === "dark" ? "true" : "false");
+      }
+      if (sw) {
+        sw.setAttribute("aria-checked", root.getAttribute("data-theme") === "dark" ? "true" : "false");
+        sw.addEventListener("click", function () {
+          setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+        });
+      }
+      // demo-only switches just flip their own state
+      document.querySelectorAll("[data-demo-switch]").forEach(function (el) {
+        el.addEventListener("click", function () {
+          el.setAttribute("aria-checked", el.getAttribute("aria-checked") === "true" ? "false" : "true");
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

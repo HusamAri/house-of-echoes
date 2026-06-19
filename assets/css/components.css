@@ -1,0 +1,142 @@
+/* =========================================================
+   HOUSE OF ECHOES — UI COMPONENT KIT
+   Frosted "liquid glass" components extracted from the design refs.
+   Reuses the brand + glass tokens from style.css.
+   ========================================================= */
+
+.kit { max-width: 1200px; margin: 0 auto; padding: clamp(3rem,8vw,7rem) var(--pad); }
+.kit__head { display: flex; flex-direction: column; gap: 1rem; margin-bottom: clamp(2.5rem,6vw,5rem); }
+.kit__title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem,7vw,5rem); line-height: 1.02; }
+.kit__lead { color: var(--text-dim); max-width: 56ch; font-size: 1.05rem; }
+.kit__section { padding: clamp(2.5rem,5vw,4rem) 0; border-top: 1px solid var(--line); }
+.kit__label { font-size: .72rem; letter-spacing: .34em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+.kit__row { display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: center; }
+.kit__grid { display: grid; gap: 1.4rem; }
+.kit__warm { position: relative; }   /* warm light leak behind a group */
+.kit__warm::before {
+  content: ""; position: absolute; inset: -10% -5%; z-index: -1; pointer-events: none;
+  background: radial-gradient(40% 80% at 20% 30%, rgba(212,163,97,0.12), transparent 60%);
+}
+
+/* ---------- Buttons ---------- */
+.ui-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  padding: 1.05rem 2.3rem; border-radius: 16px; cursor: pointer; overflow: hidden;
+  font-family: var(--sans); font-weight: 600; font-size: .76rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--text); border: 1px solid var(--glass-border); background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2); backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+  transition: transform .25s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+.ui-btn > span { position: relative; z-index: 2; }
+.ui-btn::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; opacity: .55; transition: opacity .35s var(--ease);
+  background: radial-gradient(70% 130% at 28% -10%, rgba(231,196,139,0.4), transparent 60%);
+}
+.ui-btn:hover { transform: translateY(-2px); border-color: rgba(212,163,97,0.5);
+  box-shadow: 0 18px 42px rgba(0,0,0,0.45), 0 0 34px rgba(212,163,97,0.22), inset 0 1px 0 var(--glass-hi); }
+.ui-btn:hover::after { opacity: 1; }
+.ui-btn:active { transform: translateY(1px) scale(.99); box-shadow: 0 6px 14px rgba(0,0,0,0.4), inset 0 2px 5px rgba(0,0,0,0.3); }
+.ui-btn--ghost { background: transparent; box-shadow: inset 0 1px 0 var(--glass-hi); }
+.ui-btn--ghost::after { display: none; }
+.ui-btn--ghost:hover { background: var(--glass-bg); border-color: var(--glass-border); box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi); }
+
+/* ---------- Text input ---------- */
+.ui-input {
+  width: min(100%, 380px); padding: 1.05rem 1.4rem; border-radius: 16px;
+  font-family: var(--sans); font-size: .95rem; color: var(--text);
+  border: 1px solid var(--glass-border); background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur));
+  box-shadow: inset 0 2px 7px rgba(0,0,0,0.28), inset 0 1px 0 var(--glass-hi);
+  transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.ui-input::placeholder { color: var(--text-dim); }
+.ui-input:focus { outline: none; border-color: rgba(212,163,97,0.6);
+  box-shadow: inset 0 2px 7px rgba(0,0,0,0.28), 0 0 22px rgba(212,163,97,0.2), inset 0 1px 0 var(--glass-hi); }
+
+/* ---------- ON / OFF switch ---------- */
+.ui-switch {
+  position: relative; display: inline-flex; align-items: center; padding: 5px; border-radius: 100px;
+  cursor: pointer; user-select: none; -webkit-user-select: none;
+  border: 1px solid var(--glass-border); background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.3), inset 0 -1px 1px var(--glass-hi);
+}
+.ui-switch__opt {
+  position: relative; z-index: 2; min-width: 58px; text-align: center; padding: .55rem .4rem; border-radius: 100px;
+  font-size: .66rem; letter-spacing: .2em; font-weight: 600; color: var(--text-dim); transition: color .3s var(--ease);
+}
+.ui-switch__thumb {
+  position: absolute; z-index: 1; top: 5px; left: 5px; height: calc(100% - 10px); width: 68px; border-radius: 100px;
+  background: radial-gradient(120% 160% at 50% 0%, var(--glass-hi), rgba(240,235,225,0.18) 60%, rgba(240,235,225,0.06));
+  border: 1px solid var(--glass-border); box-shadow: 0 4px 10px rgba(0,0,0,0.35), inset 0 1px 1px var(--glass-hi);
+  transition: transform .4s cubic-bezier(0.34,1.4,0.5,1);
+}
+.ui-switch[aria-checked="false"] .ui-switch__thumb { transform: translateX(68px); }
+.ui-switch[aria-checked="true"]  .ui-switch__opt--on,
+.ui-switch[aria-checked="false"] .ui-switch__opt--off { color: var(--text); }
+
+/* ---------- Metric chips ---------- */
+.ui-chip {
+  display: inline-flex; flex-direction: column; gap: .25rem; padding: .95rem 1.2rem; min-width: 92px; border-radius: 14px;
+  border: 1px solid var(--glass-border); background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.3), inset 0 1px 0 var(--glass-hi);
+}
+.ui-chip__num { font-family: var(--serif); font-weight: 600; font-size: 1.5rem; line-height: 1; color: var(--text); }
+.ui-chip__label { font-size: .56rem; letter-spacing: .22em; text-transform: uppercase; color: var(--text-dim); }
+
+/* ---------- Glass hero card (with teal glow rim) ---------- */
+.ui-card {
+  position: relative; width: min(94vw, 540px); padding: clamp(2rem,4vw,3.2rem); border-radius: 26px; overflow: hidden;
+  border: 1px solid var(--glass-border); background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2); backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+  box-shadow: 0 40px 90px rgba(0,0,0,0.55), inset 0 1px 0 var(--glass-hi), 0 0 70px rgba(63,106,111,0.28);
+}
+.ui-card::before {  /* golden flare behind the mark */
+  content: ""; position: absolute; top: -10%; left: 8%; width: 50%; height: 60%; z-index: 0; pointer-events: none;
+  background: radial-gradient(circle at 30% 40%, rgba(231,196,139,0.5), transparent 60%); filter: blur(4px);
+}
+.ui-card__mark {
+  position: relative; z-index: 1; width: 64px; height: 64px; border-radius: 50%; margin-bottom: clamp(2rem,5vw,4rem);
+  background: radial-gradient(circle, transparent 38%, var(--gold) 50%, var(--gold-soft) 55%, transparent 74%);
+}
+.ui-card__mark::after { content: ""; position: absolute; inset: 28%; border-radius: 50%; background: var(--black); }
+.ui-card__title { position: relative; z-index: 1; font-family: var(--serif); font-weight: 400; letter-spacing: .18em;
+  text-transform: uppercase; font-size: clamp(1.4rem,3vw,2rem); color: var(--text); }
+.ui-card__desc { position: relative; z-index: 1; margin-top: 1rem; max-width: 42ch; color: var(--text-dim); line-height: 1.7; }
+
+/* ---------- Feature cards trio (with corner brackets) ---------- */
+.ui-features { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; padding: 22px; }
+.ui-feature {
+  position: relative; padding: clamp(1.5rem,3vw,2.2rem); border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--glass-border); background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+}
+.ui-feature__icon {
+  width: 52px; height: 52px; border-radius: 50%; margin-bottom: 1.4rem; display: grid; place-items: center;
+  color: var(--gold); font-size: 1.1rem; background: rgba(212,163,97,0.10); border: 1px solid var(--glass-border);
+}
+.ui-feature__title { font-family: var(--serif); font-weight: 500; font-size: clamp(1.1rem,2vw,1.4rem); letter-spacing: .08em; text-transform: uppercase; color: var(--text); }
+.ui-feature__desc { margin-top: .6rem; color: var(--text-dim); font-size: .95rem; line-height: 1.6; }
+
+/* ---------- Glass panel / sidebar nav ---------- */
+.ui-panel {
+  border-radius: 22px; padding: 1.4rem; border: 1px solid var(--glass-border); background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+}
+.ui-nav { display: flex; flex-direction: column; gap: .3rem; }
+.ui-nav a {
+  display: flex; align-items: center; gap: .9rem; padding: .85rem 1rem; border-radius: 12px;
+  font-size: .76rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim);
+  transition: background .3s var(--ease), color .3s var(--ease);
+}
+.ui-nav a .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--gold); }
+.ui-nav a.is-active, .ui-nav a:hover { color: var(--text); background: var(--glass-bg); }
+.ui-nav a.is-active .dot { background: var(--gold); }
+
+@media (max-width: 720px) {
+  .ui-features { grid-template-columns: 1fr; }
+}
