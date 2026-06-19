@@ -156,7 +156,8 @@
         if (rect.bottom < -200 || rect.top > vh + 200) return;
         const speed = parseFloat(el.getAttribute("data-parallax")) || 0.1;
         const offset = (rect.top + rect.height / 2 - vh / 2) * -speed;
-        el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+        const base = el.dataset.parallaxBase ? el.dataset.parallaxBase + " " : "";
+        el.style.transform = `${base}translate3d(0, ${offset.toFixed(2)}px, 0)`;
       });
       ticking = false;
     }

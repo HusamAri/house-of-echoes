@@ -14,10 +14,10 @@
 
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
 
-  <!-- Fonts: Cormorant Garamond (Canela-like display serif) + Hanken Grotesk (Neue Haas-like grotesk) -->
+  <!-- Type system: Hanken Grotesk (sans, display + body) + Sacramento (monoline script accent) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Sacramento&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
@@ -41,9 +41,9 @@
 
   <!-- Navigation -->
   <header class="nav" id="nav">
-    <a href="#top" class="nav__brand" data-cursor="hover">
-      <span class="nav__mark"><span class="nav__mark-disc"></span></span>
-      <span class="nav__name">House&nbsp;of&nbsp;Echoes</span>
+    <a href="#top" class="nav__brand logo logo--secondary" data-cursor="hover" aria-label="House of Echoes — home">
+      <span class="logo__mark"></span>
+      <span class="logo__type">House&nbsp;of&nbsp;Echoes</span>
     </a>
     <nav class="nav__links">
       <a href="#work" data-cursor="hover">Work</a>
@@ -86,36 +86,12 @@
       <video class="hero__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
         <source src="assets/video/hero.mp4" type="video/mp4" />
       </video>
-      <div class="hero__scrim" aria-hidden="true"></div>
-      <div class="hero__leak" aria-hidden="true"></div>
-      <div class="hero__eclipse" data-parallax="0.18" aria-hidden="true">
-        <span class="eclipse__corona"></span>
-        <span class="eclipse__disc"></span>
-      </div>
-      <div class="hero__content">
-        <h1 class="hero__title">
-          <span class="reveal-line"><span>House of</span></span>
-          <span class="reveal-line"><span>Echoes</span></span>
-        </h1>
-        <div class="hero__taglines" aria-hidden="true">
-          <span class="hero__tag is-active">What remains after.</span>
-          <span class="hero__tag">Images that linger.</span>
-          <span class="hero__tag">Beyond the frame.</span>
-          <span class="hero__tag">Some stories stay.</span>
-        </div>
-      </div>
-      <div class="hero__foot">
-        <a href="#manifesto" class="hero__scroll" data-cursor="hover">
-          <span>Scroll</span>
-          <span class="hero__scroll-line"></span>
-        </a>
-        <span class="hero__place">Cinematic Studio, Istanbul</span>
-        <span class="hero__reel">Showreel · 2026</span>
-      </div>
+      <h1 class="visually-hidden">House of Echoes — Cinematic Studio by Hakan Güneş</h1>
     </section>
 
     <!-- MANIFESTO -->
     <section class="manifesto" id="manifesto">
+      <div class="brand-watermark" aria-hidden="true"><img src="assets/img/logo/eclipse.svg" alt="" /></div>
       <p class="section-label reveal"><span>Concept</span></p>
       <p class="manifesto__text">
         <span class="word">Light</span> <span class="word">always</span> <span class="word">remains.</span>
@@ -370,6 +346,13 @@
       </ol>
     </section>
 
+    <!-- BRAND STRIP -->
+    <section class="brand-strip" aria-label="House of Echoes">
+      <div class="brand-strip__pattern eclipse-pattern" aria-hidden="true"></div>
+      <img class="brand-strip__logo reveal-up" src="assets/img/logo/wordmark.svg" width="460" alt="House of Echoes" />
+      <p class="brand-strip__tag reveal"><span>Some stories stay.</span></p>
+    </section>
+
     <!-- STUDIO / ABOUT -->
     <section class="studio" id="studio">
       <div class="studio__portrait reveal-up" data-parallax="0.05">
@@ -423,10 +406,7 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer__top">
-      <div class="footer__brand">
-        <span class="footer__mark"><span class="footer__mark-disc"></span></span>
-        <span class="footer__wordmark">House of Echoes</span>
-      </div>
+      <img class="footer__logo" src="assets/img/logo/primary.svg" width="170" alt="House of Echoes" />
       <p class="footer__taglines">What remains after · Images that linger · Some stories stay</p>
     </div>
     <div class="footer__bottom">
