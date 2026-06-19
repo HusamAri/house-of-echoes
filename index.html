@@ -28,6 +28,7 @@
   <div class="grain" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
   <div class="filmfx" aria-hidden="true"></div>
+  <div class="theme-flash" aria-hidden="true"></div>
 
   <!-- Custom cursor -->
   <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
@@ -58,6 +59,14 @@
       <span></span><span></span>
     </button>
   </header>
+
+  <!-- Theme toggle — rounded pill (light · system · dark) -->
+  <div class="theme-toggle" role="radiogroup" aria-label="Theme">
+    <span class="theme-toggle__thumb" aria-hidden="true"></span>
+    <button class="theme-toggle__opt theme-toggle__opt--light"  data-theme-val="light"  role="radio" aria-label="Light theme"  data-cursor="hover">☀</button>
+    <button class="theme-toggle__opt theme-toggle__opt--system" data-theme-val="system" role="radio" aria-label="System theme" data-cursor="hover">◐</button>
+    <button class="theme-toggle__opt theme-toggle__opt--dark"   data-theme-val="dark"   role="radio" aria-label="Dark theme"   data-cursor="hover">☾</button>
+  </div>
 
   <!-- Fullscreen menu overlay -->
   <div class="overlay" id="overlay" aria-hidden="true">
