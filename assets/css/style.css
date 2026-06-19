@@ -40,6 +40,11 @@
   --bg-blur: rgba(13,13,13,0.55);
   --vignette: rgba(0,0,0,0.55);
   --grain-blend: screen; --grain-opacity: 0.05;
+  --glass-bg: linear-gradient(135deg, rgba(240,235,225,0.10), rgba(240,235,225,0.035));
+  --glass-border: rgba(240,235,225,0.16);
+  --glass-hi: rgba(255,255,255,0.20);
+  --glass-shadow: 0 14px 44px rgba(0,0,0,0.45);
+  --glass-blur: 18px;
   color-scheme: dark;
 }
 [data-theme="light"] {
@@ -51,6 +56,11 @@
   --bg-blur: rgba(231,225,214,0.72);
   --vignette: rgba(60,44,18,0.16);
   --grain-blend: multiply; --grain-opacity: 0.045;
+  --glass-bg: linear-gradient(135deg, rgba(255,253,248,0.62), rgba(255,253,248,0.34));
+  --glass-border: rgba(255,255,255,0.78);
+  --glass-hi: rgba(255,255,255,0.95);
+  --glass-shadow: 0 16px 44px rgba(60,44,18,0.14);
+  --glass-blur: 16px;
   color-scheme: light;
 }
 
@@ -759,4 +769,102 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
   .filmfx::after { opacity: 0 !important; }
   .reveal > span, .reveal-up, .reveal-line > span, .hero__tag { opacity: 1 !important; transform: none !important; }
   .manifesto__text .word { opacity: 1 !important; }
+}
+
+/* =========================================================
+   GLASS SURFACES — frosted "liquid glass" panels + viewfinder brackets
+   ========================================================= */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+          backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+}
+
+/* Corner "viewfinder" brackets (single element, four corners) */
+.brackets {
+  position: absolute; inset: 14px; pointer-events: none; z-index: 4; opacity: .5;
+  --bk: var(--gold); --bs: 20px; --bt: 1px;
+  background:
+    linear-gradient(var(--bk),var(--bk)) 0 0/var(--bs) var(--bt), linear-gradient(var(--bk),var(--bk)) 0 0/var(--bt) var(--bs),
+    linear-gradient(var(--bk),var(--bk)) 100% 0/var(--bs) var(--bt), linear-gradient(var(--bk),var(--bk)) 100% 0/var(--bt) var(--bs),
+    linear-gradient(var(--bk),var(--bk)) 0 100%/var(--bs) var(--bt), linear-gradient(var(--bk),var(--bk)) 0 100%/var(--bt) var(--bs),
+    linear-gradient(var(--bk),var(--bk)) 100% 100%/var(--bs) var(--bt), linear-gradient(var(--bk),var(--bk)) 100% 100%/var(--bt) var(--bs);
+  background-repeat: no-repeat;
+}
+
+/* Nav → frosted glass bar once scrolled */
+.nav.is-scrolled {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+          backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+}
+
+/* Services → glass cards */
+.service {
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15);
+          backdrop-filter: blur(var(--glass-blur)) saturate(1.15);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+}
+.service:hover { background: var(--glass-bg); border-color: rgba(212,163,97,0.45); }
+
+/* Process → glass cards */
+.process__step {
+  border-top: 0; border-radius: 16px; padding: clamp(1.5rem,3vw,2.1rem);
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+          backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+}
+
+/* Studio stats → glass chips */
+.stat {
+  padding: 1rem 1.3rem; border-radius: 14px; gap: .35rem;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+
+/* Contact details → glass chips */
+.contact__col {
+  padding: 1.1rem 1.5rem; border-radius: 14px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+
+/* Showreel play → glass disc; CTA panel → glass */
+.reel__play {
+  border-radius: 50%;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+}
+.hwork__end {
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+}
+
+/* Fullscreen menu → frosted glass */
+.overlay {
+  background: var(--bg-blur);
+  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+          backdrop-filter: blur(30px) saturate(1.2);
+}
+
+/* L-slider → subtle glass backing pill */
+.theme-l::before {
+  content:""; position:absolute; inset:-9px -9px -9px -9px; border-radius: 18px; z-index:-1;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav.is-scrolled, .overlay { background: var(--bg); }
 }
