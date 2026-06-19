@@ -20,18 +20,40 @@ Built directly from the House of Echoes visual identity:
 | Teal Shadow | `#3F6A6F` | Cool accent |
 | Golden Hour | `#D4A361` | Eclipse / highlight |
 
-- **Display serif:** Cormorant Garamond (a free stand-in for Canela)
-- **Grotesk:** Hanken Grotesk (a quieter, less-overused stand-in for Neue Haas Grotesk Light)
-- **Sunmark:** the solar-eclipse logo, rebuilt in pure CSS/SVG (corona + disc)
+A **sans-forward** type system (no serif), with one script for accents:
+
+- **Display + body:** Hanken Grotesk (a quieter, less-overused stand-in for Neue Haas Grotesk Light), tracked uppercase for wordmarks
+- **Script accent:** Sacramento — an elegant monoline script for select lines (e.g. _"Some stories stay."_)
+- **Sunmark:** the solar-eclipse logo (corona + disc)
+
+## Logo system
+
+The brand identity's lockups live in `assets/img/logo/`, generated from real
+font outlines with [`opentype.js`](https://github.com/opentypejs/opentype.js)
+(true vector letterforms — no hand-drawn type, no font dependency in the file):
+
+| File | Lockup | Used in |
+| --- | --- | --- |
+| `eclipse.svg` | Monogram / symbol | manifesto watermark, favicon source |
+| `primary.svg` | Stacked lockup | footer |
+| `secondary.svg` | Horizontal lockup | (nav mirrors this via CSS) |
+| `wordmark.svg` | Wordmark + minimal line | brand strip |
+| `submark.svg` | Eclipse + HOE | spare |
+
+**Swapping in a high-res set:** replace the files in `assets/img/logo/` with
+your own (matching aspect ratios) and every `<img>`-based placement updates
+automatically. The nav lockup is CSS-driven; its eclipse mark can be swapped via
+the `--logo-mark-bg` custom property.
 
 ## Craft
 
-- **Cinematic hero video** under a graded scrim, with the eclipse + wordmark on top
-  (gracefully falls back to the golden-hour gradient if the video can't play, and
-  pauses entirely under `prefers-reduced-motion`)
+- **Cinematic hero** — full-bleed background video (graceful golden-hour gradient
+  fallback if it can't play; paused under `prefers-reduced-motion`)
+- The logo system surfaces in **variable places** — nav, footer, a mid-page brand
+  strip (wordmark + eclipse pattern + script tagline), and a faint eclipse watermark
 - Eclipse-forming **preloader** with a live counter
 - **Custom cursor** with magnetic hover (fine-pointer only)
-- **Scroll-reveal** typography, **parallax** media, rotating taglines
+- **Scroll-reveal** typography, **parallax** media
 - A word-by-word **manifesto** that lights up on scroll
 - **Film grain + vignette + light-leak** overlays for a cinematic grade
 - Section imagery **art-directed in CSS** (no broken external image links)
@@ -73,6 +95,8 @@ There is nothing to build — `index.html` is the entry point.
 │   ├── css/style.css       # full design system
 │   ├── js/main.js          # motion & interaction
 │   ├── video/hero.mp4      # cinematic hero background film
-│   └── img/favicon.svg     # eclipse favicon
+│   └── img/
+│       ├── favicon.svg     # eclipse favicon
+│       └── logo/           # swap-ready logo lockups (eclipse, primary, …)
 └── README.md
 ```
