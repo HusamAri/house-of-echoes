@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House of Echoes — Cinematic Studio · Hakan Güneş</title>
+  <meta name="description" content="House of Echoes is a cinematic film studio led by Hakan Güneş. We make films for restaurants, hotels, brands, products and documentaries; images that linger after the frame." />
+  <meta name="theme-color" content="#0D0D0D" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="House of Echoes — Cinematic Studio" />
+  <meta property="og:description" content="Some stories stay. A cinematic film studio led by Hakan Güneş." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+
+  <!-- Fonts: Cormorant Garamond (Canela-like display serif) + Hanken Grotesk (Neue Haas-like grotesk) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Film grain + light leak overlays -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__eclipse"><span class="eclipse__disc"></span></div>
+    <div class="preloader__word">HOUSE OF ECHOES</div>
+    <div class="preloader__meta">
+      <span class="preloader__tag">Cinematic Studio</span>
+      <span class="preloader__count" id="loadCount">00</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__brand" data-cursor="hover">
+      <span class="nav__mark"><span class="nav__mark-disc"></span></span>
+      <span class="nav__name">House&nbsp;of&nbsp;Echoes</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#work" data-cursor="hover">Work</a>
+      <a href="#services" data-cursor="hover">Services</a>
+      <a href="#studio" data-cursor="hover">Studio</a>
+      <a href="#contact" data-cursor="hover">Contact</a>
+    </nav>
+    <button class="nav__menu" id="menuToggle" aria-label="Open menu" data-cursor="hover">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Fullscreen menu overlay -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="overlay__inner">
+      <nav class="overlay__nav">
+        <a href="#work" data-cursor="hover"><span class="overlay__idx">01</span> Work</a>
+        <a href="#scenes" data-cursor="hover"><span class="overlay__idx">02</span> Scenes</a>
+        <a href="#services" data-cursor="hover"><span class="overlay__idx">03</span> Services</a>
+        <a href="#studio" data-cursor="hover"><span class="overlay__idx">04</span> Studio</a>
+        <a href="#contact" data-cursor="hover"><span class="overlay__idx">05</span> Contact</a>
+      </nav>
+      <div class="overlay__aside">
+        <p class="overlay__line">Some stories stay.</p>
+        <a href="mailto:studio@houseofechoes.film" class="overlay__mail" data-cursor="hover">studio@houseofechoes.film</a>
+        <div class="overlay__social">
+          <a href="#" data-cursor="hover">Instagram</a>
+          <a href="#" data-cursor="hover">Vimeo</a>
+          <a href="#" data-cursor="hover">Behance</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <video class="hero__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="assets/video/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__scrim" aria-hidden="true"></div>
+      <div class="hero__leak" aria-hidden="true"></div>
+      <div class="hero__eclipse" data-parallax="0.18" aria-hidden="true">
+        <span class="eclipse__corona"></span>
+        <span class="eclipse__disc"></span>
+      </div>
+      <div class="hero__content">
+        <h1 class="hero__title">
+          <span class="reveal-line"><span>House of</span></span>
+          <span class="reveal-line"><span>Echoes</span></span>
+        </h1>
+        <div class="hero__taglines" aria-hidden="true">
+          <span class="hero__tag is-active">What remains after.</span>
+          <span class="hero__tag">Images that linger.</span>
+          <span class="hero__tag">Beyond the frame.</span>
+          <span class="hero__tag">Some stories stay.</span>
+        </div>
+      </div>
+      <div class="hero__foot">
+        <a href="#manifesto" class="hero__scroll" data-cursor="hover">
+          <span>Scroll</span>
+          <span class="hero__scroll-line"></span>
+        </a>
+        <span class="hero__place">Cinematic Studio, Istanbul</span>
+        <span class="hero__reel">Showreel · 2026</span>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto" id="manifesto">
+      <p class="section-label reveal"><span>Concept</span></p>
+      <p class="manifesto__text">
+        <span class="word">Light</span> <span class="word">always</span> <span class="word">remains.</span>
+        <span class="word">Only</span> <span class="word">the</span> <span class="word">angle</span>
+        <span class="word">of</span> <span class="word">seeing</span> <span class="word">changes.</span>
+        <span class="word muted">We</span> <span class="word muted">capture</span>
+        <span class="word muted">the</span> <span class="word muted">trace</span>
+        <span class="word muted">left</span> <span class="word muted">behind</span>
+        <span class="word muted">by</span> <span class="word muted">those</span>
+        <span class="word muted">who</span> <span class="word muted">pass.</span>
+      </p>
+      <p class="manifesto__og reveal"><span>“Işık her zaman vardır, bazen sadece bakış açın değişir.”</span></p>
+    </section>
+
+    <!-- SHOWREEL -->
+    <section class="reel" id="reel">
+      <div class="reel__frame reveal-up" data-cursor="hover" data-parallax="0.06">
+        <div class="reel__scene reel__scene--golden"></div>
+        <div class="reel__bars" aria-hidden="true"><span></span><span></span></div>
+        <button class="reel__play" aria-label="Play showreel">
+          <span class="reel__play-ring"></span>
+          <span class="reel__play-tri"></span>
+        </button>
+        <div class="reel__meta">
+          <span>Showreel 2026</span>
+          <span>02:14</span>
+        </div>
+        <div class="reel__caption">A year of light, in selected frames</div>
+      </div>
+    </section>
+
+    <!-- SCENES — cinematic scenes with their stories -->
+    <section class="scenes" id="scenes">
+      <header class="scenes__head">
+        <p class="section-label reveal"><span>Scenes &amp; Stories</span></p>
+        <h2 class="scenes__title reveal-up"><span>Every frame<br/>carries a story.</span></h2>
+      </header>
+
+      <!-- Scene 01 Restaurant -->
+      <article class="scene" id="work">
+        <div class="scene__media reveal-up" data-parallax="0.05">
+          <div class="scene__art scene__art--restaurant"></div>
+          <span class="scene__index">01</span>
+          <span class="scene__cat">Restaurant &amp; Culinary</span>
+        </div>
+        <div class="scene__body">
+          <h3 class="scene__name reveal-up"><span>The Last Service</span></h3>
+          <p class="scene__story reveal"><span>Steam rising over copper, the clink of glass, a room that breathes between courses. We film the ritual of hospitality, the unrepeatable moments a kitchen performs every night, plated in golden hour.</span></p>
+          <a href="#contact" class="scene__link reveal" data-cursor="hover"><span>View the film</span><span class="scene__arrow">→</span></a>
+        </div>
+      </article>
+
+      <!-- Scene 02 Hotel -->
+      <article class="scene scene--reverse">
+        <div class="scene__media reveal-up" data-parallax="0.05">
+          <div class="scene__art scene__art--hotel"></div>
+          <span class="scene__index">02</span>
+          <span class="scene__cat">Hotel &amp; Hospitality</span>
+        </div>
+        <div class="scene__body">
+          <h3 class="scene__name reveal-up"><span>Where Light Stays</span></h3>
+          <p class="scene__story reveal"><span>A corridor at dusk, linen catching the last of the sun, the quiet luxury of an empty suite waiting. We shape the feeling of a place, so a guest arrives long before they do.</span></p>
+          <a href="#contact" class="scene__link reveal" data-cursor="hover"><span>View the film</span><span class="scene__arrow">→</span></a>
+        </div>
+      </article>
+
+      <!-- Scene 03 Promotional -->
+      <article class="scene">
+        <div class="scene__media reveal-up" data-parallax="0.05">
+          <div class="scene__art scene__art--promo"></div>
+          <span class="scene__index">03</span>
+          <span class="scene__cat">Promotional Films</span>
+        </div>
+        <div class="scene__body">
+          <h3 class="scene__name reveal-up"><span>Beyond the Frame</span></h3>
+          <p class="scene__story reveal"><span>A brand is a promise told in motion. We compress identity into ninety seconds of light, rhythm and restraint. Films made to be remembered, not skipped.</span></p>
+          <a href="#contact" class="scene__link reveal" data-cursor="hover"><span>View the film</span><span class="scene__arrow">→</span></a>
+        </div>
+      </article>
+
+      <!-- Scene 04 Documentary -->
+      <article class="scene scene--reverse">
+        <div class="scene__media reveal-up" data-parallax="0.05">
+          <div class="scene__art scene__art--doc"></div>
+          <span class="scene__index">04</span>
+          <span class="scene__cat">Documentary</span>
+        </div>
+        <div class="scene__body">
+          <h3 class="scene__name reveal-up"><span>Some Stories Stay</span></h3>
+          <p class="scene__story reveal"><span>We follow the people behind the work: the maker, the founder, the city at five a.m. Long-form truth, framed with care. The story stays after the screen goes dark.</span></p>
+          <a href="#contact" class="scene__link reveal" data-cursor="hover"><span>View the film</span><span class="scene__arrow">→</span></a>
+        </div>
+      </article>
+
+      <!-- Scene 05 Product -->
+      <article class="scene">
+        <div class="scene__media reveal-up" data-parallax="0.05">
+          <div class="scene__art scene__art--product"></div>
+          <span class="scene__index">05</span>
+          <span class="scene__cat">Product Films</span>
+        </div>
+        <div class="scene__body">
+          <h3 class="scene__name reveal-up"><span>Held in Light</span></h3>
+          <p class="scene__story reveal"><span>One object, a thousand angles, a single honest moment. Macro detail and slow reveals that let a product speak in its own material language.</span></p>
+          <a href="#contact" class="scene__link reveal" data-cursor="hover"><span>View the film</span><span class="scene__arrow">→</span></a>
+        </div>
+      </article>
+
+      <!-- Scene 06 Social -->
+      <article class="scene scene--reverse">
+        <div class="scene__media reveal-up" data-parallax="0.05">
+          <div class="scene__art scene__art--social"></div>
+          <span class="scene__index">06</span>
+          <span class="scene__cat">Social Media</span>
+        </div>
+        <div class="scene__body">
+          <h3 class="scene__name reveal-up"><span>Echoes, Daily</span></h3>
+          <p class="scene__story reveal"><span>Vertical, fast, alive. Content built for the feed without losing the grain of cinema. A daily echo that keeps a brand present in the scroll.</span></p>
+          <a href="#contact" class="scene__link reveal" data-cursor="hover"><span>View the film</span><span class="scene__arrow">→</span></a>
+        </div>
+      </article>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+      <header class="services__head">
+        <p class="section-label reveal"><span>Full-Service Studio</span></p>
+        <h2 class="services__title reveal-up"><span>From the first frame<br/>to the final echo.</span></h2>
+      </header>
+      <ul class="services__list">
+        <li class="service" data-cursor="hover">
+          <span class="service__mark" aria-hidden="true"></span>
+          <h3 class="service__name">Restaurant &amp; Culinary</h3>
+          <p class="service__desc">Menu reveals, chef stories and atmosphere films that make a table irresistible.</p>
+          <span class="service__halo" aria-hidden="true"></span>
+        </li>
+        <li class="service" data-cursor="hover">
+          <span class="service__mark" aria-hidden="true"></span>
+          <h3 class="service__name">Hotel &amp; Hospitality</h3>
+          <p class="service__desc">Property films and suite tours that sell a feeling, not just a room.</p>
+          <span class="service__halo" aria-hidden="true"></span>
+        </li>
+        <li class="service" data-cursor="hover">
+          <span class="service__mark" aria-hidden="true"></span>
+          <h3 class="service__name">Promotional Films</h3>
+          <p class="service__desc">Brand films and commercials built to move people, not just metrics.</p>
+          <span class="service__halo" aria-hidden="true"></span>
+        </li>
+        <li class="service" data-cursor="hover">
+          <span class="service__mark" aria-hidden="true"></span>
+          <h3 class="service__name">Documentary</h3>
+          <p class="service__desc">Long-form storytelling for people, places and the work behind them.</p>
+          <span class="service__halo" aria-hidden="true"></span>
+        </li>
+        <li class="service" data-cursor="hover">
+          <span class="service__mark" aria-hidden="true"></span>
+          <h3 class="service__name">Product Films</h3>
+          <p class="service__desc">Macro, tabletop and motion-control craft that elevates objects to icons.</p>
+          <span class="service__halo" aria-hidden="true"></span>
+        </li>
+        <li class="service" data-cursor="hover">
+          <span class="service__mark" aria-hidden="true"></span>
+          <h3 class="service__name">Social Media Content</h3>
+          <p class="service__desc">Vertical-first series and campaigns engineered for reach and retention.</p>
+          <span class="service__halo" aria-hidden="true"></span>
+        </li>
+      </ul>
+      <p class="services__capabilities reveal">
+        <span>Direction</span><span>Cinematography</span><span>Editing</span><span>Color Grading</span><span>Aerial / Drone</span><span>Sound Design</span><span>Creative Strategy</span>
+      </p>
+    </section>
+
+    <!-- INDEX / SELECTED WORK GRID -->
+    <section class="index" id="index">
+      <header class="index__head">
+        <p class="section-label reveal"><span>Selected Work</span></p>
+        <span class="index__year reveal">2024 – 2026</span>
+      </header>
+      <div class="index__grid">
+        <a class="tile reveal-up" data-cursor="hover" href="#contact">
+          <span class="tile__art tile__art--a"></span>
+          <span class="tile__meta"><span class="tile__name">Nuun · Dinner Service</span><span class="tile__cat">Restaurant</span></span>
+        </a>
+        <a class="tile reveal-up" data-cursor="hover" href="#contact">
+          <span class="tile__art tile__art--b"></span>
+          <span class="tile__meta"><span class="tile__name">Aria Hotel · Suites</span><span class="tile__cat">Hospitality</span></span>
+        </a>
+        <a class="tile reveal-up" data-cursor="hover" href="#contact">
+          <span class="tile__art tile__art--c"></span>
+          <span class="tile__meta"><span class="tile__name">Atlas Watches · Vol. I</span><span class="tile__cat">Product</span></span>
+        </a>
+        <a class="tile reveal-up" data-cursor="hover" href="#contact">
+          <span class="tile__art tile__art--d"></span>
+          <span class="tile__meta"><span class="tile__name">The Bosphorus Diary</span><span class="tile__cat">Documentary</span></span>
+        </a>
+        <a class="tile reveal-up" data-cursor="hover" href="#contact">
+          <span class="tile__art tile__art--e"></span>
+          <span class="tile__meta"><span class="tile__name">Solis Skincare · Launch</span><span class="tile__cat">Promotional</span></span>
+        </a>
+        <a class="tile reveal-up" data-cursor="hover" href="#contact">
+          <span class="tile__art tile__art--f"></span>
+          <span class="tile__meta"><span class="tile__name">Daily Echoes · Reels</span><span class="tile__cat">Social</span></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Restaurants</span><span class="marquee__dot">◦</span>
+        <span>Hotels</span><span class="marquee__dot">◦</span>
+        <span>Brands</span><span class="marquee__dot">◦</span>
+        <span>Documentary</span><span class="marquee__dot">◦</span>
+        <span>Product</span><span class="marquee__dot">◦</span>
+        <span>Social</span><span class="marquee__dot">◦</span>
+        <span>Restaurants</span><span class="marquee__dot">◦</span>
+        <span>Hotels</span><span class="marquee__dot">◦</span>
+        <span>Brands</span><span class="marquee__dot">◦</span>
+        <span>Documentary</span><span class="marquee__dot">◦</span>
+        <span>Product</span><span class="marquee__dot">◦</span>
+        <span>Social</span><span class="marquee__dot">◦</span>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process" id="process">
+      <header class="process__head">
+        <p class="section-label reveal"><span>The Approach</span></p>
+        <h2 class="process__title reveal-up"><span>Four movements,<br/>one echo.</span></h2>
+      </header>
+      <ol class="process__list">
+        <li class="process__step reveal-up">
+          <span class="process__num">01</span>
+          <h3>Listen</h3>
+          <p>We start in silence, listening for the brand, the room, the feeling you want to leave behind.</p>
+        </li>
+        <li class="process__step reveal-up">
+          <span class="process__num">02</span>
+          <h3>Frame</h3>
+          <p>Treatment, shot list and light. Every choice is intentional before a camera is ever switched on.</p>
+        </li>
+        <li class="process__step reveal-up">
+          <span class="process__num">03</span>
+          <h3>Capture</h3>
+          <p>A lean, precise crew on set. Cinema cameras, considered light, golden hours chased and held.</p>
+        </li>
+        <li class="process__step reveal-up">
+          <span class="process__num">04</span>
+          <h3>Echo</h3>
+          <p>Edit, color and sound, finished to linger. Delivered for screen, cinema and every feed.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- STUDIO / ABOUT -->
+    <section class="studio" id="studio">
+      <div class="studio__portrait reveal-up" data-parallax="0.05">
+        <div class="studio__art"></div>
+        <span class="studio__eclipse" aria-hidden="true"></span>
+      </div>
+      <div class="studio__body">
+        <p class="section-label reveal"><span>Studio</span></p>
+        <h2 class="studio__name reveal-up"><span>Hakan Güneş</span></h2>
+        <p class="studio__role reveal"><span>Founder · Director &amp; Cinematographer</span></p>
+        <p class="studio__bio reveal"><span>House of Echoes is the studio of Hakan Güneş, a director who treats light as a language and restraint as a style. For a decade he has chased the hour between day and night, building films for restaurants, hotels and brands that don't shout to be remembered.</span></p>
+        <p class="studio__bio reveal"><span>The studio works as a full-round partner: strategy, direction, cinematography and post under one roof. Based in Istanbul, filming worldwide, wherever there is a story worth letting echo.</span></p>
+        <div class="studio__stats">
+          <div class="stat reveal-up"><span class="stat__num">10+</span><span class="stat__label">Years behind the lens</span></div>
+          <div class="stat reveal-up"><span class="stat__num">120</span><span class="stat__label">Films delivered</span></div>
+          <div class="stat reveal-up"><span class="stat__num">∞</span><span class="stat__label">Golden hours chased</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <span class="contact__eclipse" aria-hidden="true"></span>
+      <p class="section-label reveal"><span>Let's Talk</span></p>
+      <h2 class="contact__title">
+        <span class="reveal-line"><span>Leave an</span></span>
+        <span class="reveal-line"><span>echo.</span></span>
+      </h2>
+      <a href="mailto:studio@houseofechoes.film" class="contact__mail reveal" data-cursor="hover"><span>studio@houseofechoes.film</span></a>
+      <div class="contact__row reveal">
+        <div class="contact__col">
+          <span class="contact__k">Studio</span>
+          <span class="contact__v">Istanbul · Worldwide</span>
+        </div>
+        <div class="contact__col">
+          <span class="contact__k">New projects</span>
+          <span class="contact__v">+90 555 000 00 00</span>
+        </div>
+        <div class="contact__col">
+          <span class="contact__k">Social</span>
+          <span class="contact__v contact__social">
+            <a href="#" data-cursor="hover">Instagram</a>
+            <a href="#" data-cursor="hover">Vimeo</a>
+            <a href="#" data-cursor="hover">Behance</a>
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__mark"><span class="footer__mark-disc"></span></span>
+        <span class="footer__wordmark">House of Echoes</span>
+      </div>
+      <p class="footer__taglines">What remains after · Images that linger · Some stories stay</p>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 House of Echoes</span>
+      <a href="#top" class="footer__top-link" data-cursor="hover">Back to top ↑</a>
+      <span>Designed in golden hour</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

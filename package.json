@@ -1,0 +1,12 @@
+{
+  "name": "house-of-echoes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cinematic studio portfolio for House of Echoes — director Hakan Güneş.",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "start": "python3 -m http.server 4173"
+  },
+  "keywords": ["cinematic", "portfolio", "videography", "studio", "house-of-echoes"],
+  "license": "UNLICENSED"
+}
