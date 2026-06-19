@@ -52,14 +52,22 @@
   }
   function syncControls() {
     const pref = getPref();
-    $$(".theme-l").forEach((el) => {
-      $$("[data-theme-val]", el).forEach((b) =>
-        b.setAttribute("aria-checked", b.getAttribute("data-theme-val") === pref ? "true" : "false"));
-      const tip = $(".theme-l__tip", el);
-      if (tip) tip.textContent = pref;
-    });
+    $$(".theme-toggle [data-theme-val]").forEach((b) =>
+      b.setAttribute("aria-checked", b.getAttribute("data-theme-val") === pref ? "true" : "false"));
+  }
+  function flashLights() {
+    const flash = $(".theme-flash");
+    if (!flash || reduceMotion) return;
+    const tg = $(".theme-toggle");
+    if (tg) {
+      const r = tg.getBoundingClientRect();
+      flash.style.setProperty("--flash-x", ((r.left + r.width / 2) / window.innerWidth * 100) + "%");
+      flash.style.setProperty("--flash-y", ((r.top + r.height / 2) / window.innerHeight * 100) + "%");
+    }
+    flash.classList.remove("is-on"); void flash.offsetWidth; flash.classList.add("is-on");
   }
   function setPref(pref) {
+    if (pref !== getPref()) flashLights();
     try { localStorage.setItem(THEME_KEY, pref); } catch (e) {}
     applyTheme(pref);
     syncControls();
@@ -71,32 +79,45 @@
     else if (sysMq.addListener) sysMq.addListener(onSys);
   }
 
-  /* ---------- L-shaped theme control in each film player corner ---------- */
-  function buildThemeControl() {
-    const el = document.createElement("div");
-    el.className = "theme-l";
-    el.setAttribute("role", "radiogroup");
-    el.setAttribute("aria-label", "Theme");
-    el.innerHTML =
-      '<span class="theme-l__track" aria-hidden="true"></span>' +
-      '<button class="theme-l__opt theme-l__opt--light"  data-theme-val="light"  role="radio" aria-label="Light theme"  title="Light"  data-cursor="hover">☀</button>' +
-      '<button class="theme-l__opt theme-l__opt--system" data-theme-val="system" role="radio" aria-label="System theme" title="System" data-cursor="hover">◐</button>' +
-      '<button class="theme-l__opt theme-l__opt--dark"   data-theme-val="dark"   role="radio" aria-label="Dark theme"   title="Dark"   data-cursor="hover">☾</button>' +
-      '<span class="theme-l__thumb" aria-hidden="true"></span>' +
-      '<span class="theme-l__tip" aria-hidden="true">system</span>';
-    el.addEventListener("click", (e) => {
-      const btn = e.target.closest("[data-theme-val]");
-      if (!btn) return;
-      e.preventDefault();
-      setPref(btn.getAttribute("data-theme-val"));
-    });
-    return el;
-  }
+  /* ---------- Rounded theme toggle — grab the knob and slide it ---------- */
   function initThemeControls() {
-    $$("[data-player]").forEach((pl) => {
-      if (getComputedStyle(pl).position === "static") pl.style.position = "relative";
-      pl.appendChild(buildThemeControl());
+    const tg = $(".theme-toggle");
+    if (!tg) return;
+    const thumb = $(".theme-toggle__thumb", tg);
+    const opts = $$(".theme-toggle__opt", tg);
+    const order = ["light", "system", "dark"];
+    const PAD = 5;
+    let dragging = false, moved = false, startX = 0, step = 34;
+
+    const nearestIdx = (clientX) => {
+      const rel = clientX - tg.getBoundingClientRect().left - PAD - step / 2;
+      return Math.round(Math.max(0, Math.min(step * 2, rel)) / step);
+    };
+    tg.addEventListener("pointerdown", (e) => {
+      dragging = true; moved = false; startX = e.clientX;
+      step = (opts[0] && opts[0].offsetWidth) || 34;
+      tg.classList.add("is-grabbing");
+      if (thumb) thumb.style.transition = "none";
+      try { tg.setPointerCapture(e.pointerId); } catch (_) {}
     });
+    tg.addEventListener("pointermove", (e) => {
+      if (!dragging || !thumb) return;
+      if (Math.abs(e.clientX - startX) > 3) moved = true;
+      const rel = e.clientX - tg.getBoundingClientRect().left - PAD - step / 2;
+      thumb.style.transform = "translateX(" + Math.max(0, Math.min(step * 2, rel)).toFixed(1) + "px)";
+    });
+    const end = (e) => {
+      if (!dragging) return;
+      dragging = false; tg.classList.remove("is-grabbing");
+      if (thumb) { thumb.style.transition = ""; thumb.style.transform = ""; }
+      setPref(order[nearestIdx(e.clientX)]);
+    };
+    tg.addEventListener("pointerup", end);
+    tg.addEventListener("pointercancel", end);
+    // keyboard: arrow / enter on focused option
+    opts.forEach((o) => o.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPref(o.getAttribute("data-theme-val")); }
+    }));
     syncControls();
   }
 
@@ -371,10 +392,7 @@
       lb.classList.remove("is-open"); lb.setAttribute("aria-hidden", "true");
       scrollLock(false); video.pause();
     }
-    trigger.addEventListener("click", (e) => {
-      if (e.target.closest(".theme-l")) return; // let the theme slider handle its own clicks
-      e.preventDefault(); open();
-    });
+    trigger.addEventListener("click", (e) => { e.preventDefault(); open(); });
     closeBtn.addEventListener("click", close);
     lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lb.classList.contains("is-open")) close(); });
