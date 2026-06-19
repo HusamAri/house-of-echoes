@@ -161,6 +161,64 @@
     });
   }
 
+  /* ---------- Selected Work: pinned horizontal scroll ---------- */
+  function initHorizontalWork() {
+    const section = $(".hwork");
+    if (!section) return;
+    const track = $(".hwork__track", section);
+    if (!track) return;
+    const mq = window.matchMedia("(min-width: 820px)");
+    let active = false, maxX = 0;
+
+    function setHeight() {
+      maxX = Math.max(0, track.scrollWidth - window.innerWidth);
+      section.style.height = (maxX + window.innerHeight) + "px";
+      if (lenis) lenis.resize();
+    }
+    function update() {
+      if (!active) return;
+      const top = section.getBoundingClientRect().top;
+      const total = section.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(Math.max(-top / total, 0), 1) : 0;
+      track.style.transform = `translate3d(${(-progress * maxX).toFixed(1)}px,0,0)`;
+    }
+    function evaluate() {
+      const shouldPin = mq.matches && !reduceMotion;
+      if (shouldPin && !active) { active = true; section.classList.remove("hwork--native"); setHeight(); }
+      else if (!shouldPin && (active || !section.classList.contains("hwork--native"))) {
+        active = false; section.classList.add("hwork--native"); section.style.height = ""; track.style.transform = "";
+      }
+      update();
+    }
+    evaluate();
+    window.addEventListener("scroll", update, { passive: true });
+    if (lenis) lenis.on("scroll", update);
+    window.addEventListener("resize", () => { if (active) setHeight(); evaluate(); });
+    window.addEventListener("load", () => { if (active) { setHeight(); update(); } });
+    if (mq.addEventListener) mq.addEventListener("change", evaluate);
+  }
+
+  /* ---------- Hover-to-play video on work cards ---------- */
+  function initHoverVideo() {
+    if (!finePointer || reduceMotion) return;
+    $$(".hcard").forEach((card) => {
+      const v = $(".hcard__video", card);
+      if (!v) return;
+      // if the per-category clip 404s, fall back to the hero film as placeholder
+      v.addEventListener("error", () => {
+        const fb = v.dataset.fallback;
+        if (fb && v.getAttribute("src") !== fb) { v.setAttribute("src", fb); if (card.classList.contains("is-playing")) v.play().catch(() => {}); }
+      });
+      let loaded = false;
+      card.addEventListener("mouseenter", () => {
+        if (!loaded) { loaded = true; v.setAttribute("src", v.dataset.src); }
+        card.classList.add("is-playing");
+        v.play().catch(() => {});
+      });
+      card.addEventListener("mouseleave", () => { card.classList.remove("is-playing"); v.pause(); });
+    });
+  }
+
   /* ---------- Magnetic hover (award-style micro-interaction) ---------- */
   function initMagnetic() {
     if (!finePointer || reduceMotion) return;
@@ -293,6 +351,35 @@
     video.addEventListener("canplay", tryPlay, { once: true });
   }
 
+  /* ---------- Cinemascope showreel lightbox ---------- */
+  function initReelLightbox() {
+    const lb = $("#reelLightbox");
+    const trigger = $(".reel__frame");
+    if (!lb || !trigger) return;
+    const video = $(".lightbox__video", lb);
+    const closeBtn = $(".lightbox__close", lb);
+    function open() {
+      if (!video.getAttribute("src")) video.setAttribute("src", video.dataset.src);
+      lb.classList.add("is-open"); lb.setAttribute("aria-hidden", "false");
+      scrollLock(true);
+      try { video.currentTime = 0; } catch (e) {}
+      video.muted = false;
+      const p = video.play();
+      if (p && p.catch) p.catch(() => { video.muted = true; video.play().catch(() => {}); });
+    }
+    function close() {
+      lb.classList.remove("is-open"); lb.setAttribute("aria-hidden", "true");
+      scrollLock(false); video.pause();
+    }
+    trigger.addEventListener("click", (e) => {
+      if (e.target.closest(".theme-l")) return; // let the theme slider handle its own clicks
+      e.preventDefault(); open();
+    });
+    closeBtn.addEventListener("click", close);
+    lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lb.classList.contains("is-open")) close(); });
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     initSmoothScroll();
@@ -308,6 +395,9 @@
     initManifesto();
     initTaglines();
     initParallax();
+    initHorizontalWork();
+    initHoverVideo();
+    initReelLightbox();
   });
 
   // Failsafe: if preloader script timing misses, reveal hero after load
