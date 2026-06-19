@@ -6,6 +6,8 @@
   <title>House of Echoes — Cinematic Studio · Hakan Güneş</title>
   <meta name="description" content="House of Echoes is a cinematic film studio led by Hakan Güneş. We make films for restaurants, hotels, brands, products and documentaries; images that linger after the frame." />
   <meta name="theme-color" content="#0D0D0D" />
+  <!-- Apply theme before paint to avoid a flash -->
+  <script>(function(){try{var v=localStorage.getItem('hoe-theme');var p=(v==='light'||v==='dark'||v==='system')?v:'system';var d=p==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;var r=document.documentElement;r.setAttribute('data-theme-pref',p);r.setAttribute('data-theme',d);var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',d==='dark'?'#0D0D0D':'#E7E1D6');}catch(e){document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-theme-pref','system');}})();</script>
 
   <!-- Open Graph -->
   <meta property="og:title" content="House of Echoes — Cinematic Studio" />
@@ -22,9 +24,10 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <!-- Film grain + light leak overlays -->
+  <!-- Film grain + vignette + theme-aware film texture overlays -->
   <div class="grain" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
+  <div class="filmfx" aria-hidden="true"></div>
 
   <!-- Custom cursor -->
   <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
@@ -81,7 +84,7 @@
   <main id="top">
 
     <!-- HERO -->
-    <section class="hero" id="hero">
+    <section class="hero" id="hero" data-player>
       <div class="hero__bg" aria-hidden="true"></div>
       <video class="hero__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
         <source src="assets/video/hero.mp4" type="video/mp4" />
@@ -108,7 +111,7 @@
 
     <!-- SHOWREEL -->
     <section class="reel" id="reel">
-      <div class="reel__frame reveal-up" data-cursor="hover" data-parallax="0.06">
+      <div class="reel__frame reveal-up" data-cursor="hover" data-parallax="0.06" data-player>
         <div class="reel__scene reel__scene--golden"></div>
         <div class="reel__bars" aria-hidden="true"><span></span><span></span></div>
         <button class="reel__play" aria-label="Play showreel">
@@ -132,7 +135,7 @@
 
       <!-- Scene 01 Restaurant -->
       <article class="scene" id="work">
-        <div class="scene__media reveal-up" data-parallax="0.05">
+        <div class="scene__media reveal-up" data-parallax="0.05" data-player>
           <div class="scene__art scene__art--restaurant"></div>
           <span class="scene__index">01</span>
           <span class="scene__cat">Restaurant &amp; Culinary</span>
@@ -146,7 +149,7 @@
 
       <!-- Scene 02 Hotel -->
       <article class="scene scene--reverse">
-        <div class="scene__media reveal-up" data-parallax="0.05">
+        <div class="scene__media reveal-up" data-parallax="0.05" data-player>
           <div class="scene__art scene__art--hotel"></div>
           <span class="scene__index">02</span>
           <span class="scene__cat">Hotel &amp; Hospitality</span>
@@ -160,7 +163,7 @@
 
       <!-- Scene 03 Promotional -->
       <article class="scene">
-        <div class="scene__media reveal-up" data-parallax="0.05">
+        <div class="scene__media reveal-up" data-parallax="0.05" data-player>
           <div class="scene__art scene__art--promo"></div>
           <span class="scene__index">03</span>
           <span class="scene__cat">Promotional Films</span>
@@ -174,7 +177,7 @@
 
       <!-- Scene 04 Documentary -->
       <article class="scene scene--reverse">
-        <div class="scene__media reveal-up" data-parallax="0.05">
+        <div class="scene__media reveal-up" data-parallax="0.05" data-player>
           <div class="scene__art scene__art--doc"></div>
           <span class="scene__index">04</span>
           <span class="scene__cat">Documentary</span>
@@ -188,7 +191,7 @@
 
       <!-- Scene 05 Product -->
       <article class="scene">
-        <div class="scene__media reveal-up" data-parallax="0.05">
+        <div class="scene__media reveal-up" data-parallax="0.05" data-player>
           <div class="scene__art scene__art--product"></div>
           <span class="scene__index">05</span>
           <span class="scene__cat">Product Films</span>
@@ -202,7 +205,7 @@
 
       <!-- Scene 06 Social -->
       <article class="scene scene--reverse">
-        <div class="scene__media reveal-up" data-parallax="0.05">
+        <div class="scene__media reveal-up" data-parallax="0.05" data-player>
           <div class="scene__art scene__art--social"></div>
           <span class="scene__index">06</span>
           <span class="scene__cat">Social Media</span>
@@ -349,7 +352,10 @@
     <!-- BRAND STRIP -->
     <section class="brand-strip" aria-label="House of Echoes">
       <div class="brand-strip__pattern eclipse-pattern" aria-hidden="true"></div>
-      <img class="brand-strip__logo reveal-up" src="assets/img/logo/wordmark.svg" width="460" alt="House of Echoes" />
+      <div class="brand-strip__logo reveal-up">
+        <span class="brand-strip__wordmark">House of Echoes</span>
+        <span class="brand-line"></span>
+      </div>
       <p class="brand-strip__tag reveal"><span>Some stories stay.</span></p>
     </section>
 
@@ -406,7 +412,11 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer__top">
-      <img class="footer__logo" src="assets/img/logo/primary.svg" width="170" alt="House of Echoes" />
+      <div class="footer__brand logo logo--primary">
+        <span class="logo__mark"></span>
+        <span class="logo__type logo__type--stack"><span>House of</span><span>Echoes</span></span>
+        <span class="logo__line"></span>
+      </div>
       <p class="footer__taglines">What remains after · Images that linger · Some stories stay</p>
     </div>
     <div class="footer__bottom">

@@ -34,16 +34,31 @@ font outlines with [`opentype.js`](https://github.com/opentypejs/opentype.js)
 
 | File | Lockup | Used in |
 | --- | --- | --- |
-| `eclipse.svg` | Monogram / symbol | manifesto watermark, favicon source |
-| `primary.svg` | Stacked lockup | footer |
-| `secondary.svg` | Horizontal lockup | (nav mirrors this via CSS) |
-| `wordmark.svg` | Wordmark + minimal line | brand strip |
-| `submark.svg` | Eclipse + HOE | spare |
+| `eclipse.svg` | Monogram / symbol | manifesto watermark |
+| `primary.svg` | Stacked lockup | asset set (footer mirrors via CSS) |
+| `secondary.svg` | Horizontal lockup | asset set (nav mirrors via CSS) |
+| `wordmark.svg` | Wordmark + minimal line | asset set (brand strip mirrors via CSS) |
+| `submark.svg` | Eclipse + HOE | asset set |
 
-**Swapping in a high-res set:** replace the files in `assets/img/logo/` with
-your own (matching aspect ratios) and every `<img>`-based placement updates
-automatically. The nav lockup is CSS-driven; its eclipse mark can be swapped via
-the `--logo-mark-bg` custom property.
+The on-site lockups are **CSS-driven** so they recolour with the active theme
+(wordmark uses `--text`; eclipse mark stays gold). The SVG files are the
+swap-ready brand asset set: drop in a high-res set (matching aspect ratios) and
+re-point the placements, or override the eclipse mark via the `--logo-mark-bg`
+custom property.
+
+## Themes — light · dark · system
+
+A full **light / dark / system** theme system, persisted to `localStorage` and
+applied before first paint (no flash). System mode tracks the OS preference live.
+
+- The control is an **L-shaped slider** docked in the corner of every film
+  player (hero, showreel, each scene): **Light** at the left of the bend,
+  **System** at the corner, **Dark** up the right edge — a gold ring rides the L.
+  All instances stay in sync.
+- The cinematic **film frames stay dark in both themes** (like film stills in a
+  gallery); only the page "chrome" recolours.
+- **Theme-aware film texture:** in light, warm burnt-film light rays drift over
+  the cream; in dark, faint light leaks with a very subtle, occasional glitch.
 
 ## Craft
 

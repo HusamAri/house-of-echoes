@@ -10,6 +10,73 @@
   const $  = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
+  /* ---------- Theme: light / dark / system ---------- */
+  const THEME_KEY = "hoe-theme";
+  const sysMq = window.matchMedia("(prefers-color-scheme: dark)");
+  function getPref() {
+    let v;
+    try { v = localStorage.getItem(THEME_KEY); } catch (e) {}
+    return v === "light" || v === "dark" || v === "system" ? v : "system";
+  }
+  function resolveTheme(pref) { return pref === "system" ? (sysMq.matches ? "dark" : "light") : pref; }
+  function applyTheme(pref) {
+    const root = document.documentElement;
+    const resolved = resolveTheme(pref);
+    root.setAttribute("data-theme-pref", pref);
+    root.setAttribute("data-theme", resolved);
+    const m = $('meta[name="theme-color"]');
+    if (m) m.setAttribute("content", resolved === "dark" ? "#0D0D0D" : "#E7E1D6");
+  }
+  function syncControls() {
+    const pref = getPref();
+    $$(".theme-l").forEach((el) => {
+      $$("[data-theme-val]", el).forEach((b) =>
+        b.setAttribute("aria-checked", b.getAttribute("data-theme-val") === pref ? "true" : "false"));
+      const tip = $(".theme-l__tip", el);
+      if (tip) tip.textContent = pref;
+    });
+  }
+  function setPref(pref) {
+    try { localStorage.setItem(THEME_KEY, pref); } catch (e) {}
+    applyTheme(pref);
+    syncControls();
+  }
+  function initTheme() {
+    applyTheme(getPref());
+    const onSys = () => { if (getPref() === "system") applyTheme("system"); };
+    if (sysMq.addEventListener) sysMq.addEventListener("change", onSys);
+    else if (sysMq.addListener) sysMq.addListener(onSys);
+  }
+
+  /* ---------- L-shaped theme control in each film player corner ---------- */
+  function buildThemeControl() {
+    const el = document.createElement("div");
+    el.className = "theme-l";
+    el.setAttribute("role", "radiogroup");
+    el.setAttribute("aria-label", "Theme");
+    el.innerHTML =
+      '<span class="theme-l__track" aria-hidden="true"></span>' +
+      '<button class="theme-l__opt theme-l__opt--light"  data-theme-val="light"  role="radio" aria-label="Light theme"  title="Light"  data-cursor="hover">☀</button>' +
+      '<button class="theme-l__opt theme-l__opt--system" data-theme-val="system" role="radio" aria-label="System theme" title="System" data-cursor="hover">◐</button>' +
+      '<button class="theme-l__opt theme-l__opt--dark"   data-theme-val="dark"   role="radio" aria-label="Dark theme"   title="Dark"   data-cursor="hover">☾</button>' +
+      '<span class="theme-l__thumb" aria-hidden="true"></span>' +
+      '<span class="theme-l__tip" aria-hidden="true">system</span>';
+    el.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-theme-val]");
+      if (!btn) return;
+      e.preventDefault();
+      setPref(btn.getAttribute("data-theme-val"));
+    });
+    return el;
+  }
+  function initThemeControls() {
+    $$("[data-player]").forEach((pl) => {
+      if (getComputedStyle(pl).position === "static") pl.style.position = "relative";
+      pl.appendChild(buildThemeControl());
+    });
+    syncControls();
+  }
+
   /* ---------- Preloader ---------- */
   function initPreloader() {
     const pre = $("#preloader");
@@ -187,6 +254,8 @@
 
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
+    initTheme();
+    initThemeControls();
     initHeroVideo();
     initPreloader();
     initCursor();
