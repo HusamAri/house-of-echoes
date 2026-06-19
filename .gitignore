@@ -1,0 +1,12 @@
+# Local Claude Code session settings
+.claude/settings.local.json
+
+# Dependencies / build cruft
+node_modules/
+dist/
+.cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
