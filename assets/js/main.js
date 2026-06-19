@@ -198,6 +198,27 @@
     if (mq.addEventListener) mq.addEventListener("change", evaluate);
   }
 
+  /* ---------- Hover-to-play video on work cards ---------- */
+  function initHoverVideo() {
+    if (!finePointer || reduceMotion) return;
+    $$(".hcard").forEach((card) => {
+      const v = $(".hcard__video", card);
+      if (!v) return;
+      // if the per-category clip 404s, fall back to the hero film as placeholder
+      v.addEventListener("error", () => {
+        const fb = v.dataset.fallback;
+        if (fb && v.getAttribute("src") !== fb) { v.setAttribute("src", fb); if (card.classList.contains("is-playing")) v.play().catch(() => {}); }
+      });
+      let loaded = false;
+      card.addEventListener("mouseenter", () => {
+        if (!loaded) { loaded = true; v.setAttribute("src", v.dataset.src); }
+        card.classList.add("is-playing");
+        v.play().catch(() => {});
+      });
+      card.addEventListener("mouseleave", () => { card.classList.remove("is-playing"); v.pause(); });
+    });
+  }
+
   /* ---------- Magnetic hover (award-style micro-interaction) ---------- */
   function initMagnetic() {
     if (!finePointer || reduceMotion) return;
@@ -346,6 +367,7 @@
     initTaglines();
     initParallax();
     initHorizontalWork();
+    initHoverVideo();
   });
 
   // Failsafe: if preloader script timing misses, reveal hero after load
