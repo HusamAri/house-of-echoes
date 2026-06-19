@@ -10,6 +10,29 @@
   const $  = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
+  let lenis = null;
+
+  /* ---------- Smooth inertia scroll (Lenis) ---------- */
+  function initSmoothScroll() {
+    if (reduceMotion || typeof Lenis === "undefined") return;
+    lenis = new Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.6 });
+    // hold scrolling until the preloader lifts
+    const pre = $("#preloader");
+    if (pre && !pre.classList.contains("is-done")) lenis.stop();
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    // route in-page anchors through Lenis for a smooth glide
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const href = a.getAttribute("href");
+      if (href === "#" || href === "#top") { e.preventDefault(); lenis.scrollTo(0); return; }
+      const target = document.querySelector(href);
+      if (target) { e.preventDefault(); lenis.scrollTo(target); }
+    });
+  }
+  const scrollLock = (on) => { if (lenis) { on ? lenis.stop() : lenis.start(); } };
+
   /* ---------- Theme: light / dark / system ---------- */
   const THEME_KEY = "hoe-theme";
   const sysMq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -100,6 +123,7 @@
         setTimeout(() => {
           pre.classList.add("is-done");
           document.body.classList.remove("is-locked");
+          scrollLock(false);
           // trigger hero reveal
           const hero = $("#hero");
           if (hero) hero.classList.add("is-in");
@@ -137,6 +161,22 @@
     });
   }
 
+  /* ---------- Magnetic hover (award-style micro-interaction) ---------- */
+  function initMagnetic() {
+    if (!finePointer || reduceMotion) return;
+    $$(".reel__play, .scene__link, .contact__mail, .footer__top-link, [data-magnetic]").forEach((el) => {
+      const strength = parseFloat(el.getAttribute("data-magnetic")) || 0.3;
+      el.style.transition = "transform .35s var(--ease)";
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        const mx = (e.clientX - (r.left + r.width / 2)) * strength;
+        const my = (e.clientY - (r.top + r.height / 2)) * strength;
+        el.style.transform = `translate(${mx.toFixed(1)}px, ${my.toFixed(1)}px)`;
+      });
+      el.addEventListener("mouseleave", () => { el.style.transform = "translate(0,0)"; });
+    });
+  }
+
   /* ---------- Nav: scroll state + hide on scroll down ---------- */
   function initNav() {
     const nav = $("#nav");
@@ -161,10 +201,11 @@
     const toggle = $("#menuToggle");
     const overlay = $("#overlay");
     if (!toggle || !overlay) return;
-    function close() { document.body.classList.remove("menu-open"); toggle.setAttribute("aria-label", "Open menu"); }
+    function close() { document.body.classList.remove("menu-open"); toggle.setAttribute("aria-label", "Open menu"); scrollLock(false); }
     toggle.addEventListener("click", () => {
       const open = document.body.classList.toggle("menu-open");
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      scrollLock(open);
     });
     $$("a", overlay).forEach((a) => a.addEventListener("click", close));
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
@@ -254,11 +295,13 @@
 
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
+    initSmoothScroll();
     initTheme();
     initThemeControls();
     initHeroVideo();
     initPreloader();
     initCursor();
+    initMagnetic();
     initNav();
     initMenu();
     initReveals();
