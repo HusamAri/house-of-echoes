@@ -351,6 +351,35 @@
     video.addEventListener("canplay", tryPlay, { once: true });
   }
 
+  /* ---------- Cinemascope showreel lightbox ---------- */
+  function initReelLightbox() {
+    const lb = $("#reelLightbox");
+    const trigger = $(".reel__frame");
+    if (!lb || !trigger) return;
+    const video = $(".lightbox__video", lb);
+    const closeBtn = $(".lightbox__close", lb);
+    function open() {
+      if (!video.getAttribute("src")) video.setAttribute("src", video.dataset.src);
+      lb.classList.add("is-open"); lb.setAttribute("aria-hidden", "false");
+      scrollLock(true);
+      try { video.currentTime = 0; } catch (e) {}
+      video.muted = false;
+      const p = video.play();
+      if (p && p.catch) p.catch(() => { video.muted = true; video.play().catch(() => {}); });
+    }
+    function close() {
+      lb.classList.remove("is-open"); lb.setAttribute("aria-hidden", "true");
+      scrollLock(false); video.pause();
+    }
+    trigger.addEventListener("click", (e) => {
+      if (e.target.closest(".theme-l")) return; // let the theme slider handle its own clicks
+      e.preventDefault(); open();
+    });
+    closeBtn.addEventListener("click", close);
+    lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lb.classList.contains("is-open")) close(); });
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     initSmoothScroll();
@@ -368,6 +397,7 @@
     initParallax();
     initHorizontalWork();
     initHoverVideo();
+    initReelLightbox();
   });
 
   // Failsafe: if preloader script timing misses, reveal hero after load
