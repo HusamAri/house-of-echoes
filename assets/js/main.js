@@ -292,7 +292,7 @@
 
   /* ---------- Reveal on scroll ---------- */
   function initReveals() {
-    const els = $$(".reveal, .reveal-up, .reveal-line, .scenes__title, .services__title, .process__title");
+    const els = $$(".reveal, .reveal-up, .reveal-line, .scenes__title, .services__title, .process__title, .service");
     if (!("IntersectionObserver" in window)) {
       els.forEach((el) => el.classList.add("is-in"));
       return;
