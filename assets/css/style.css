@@ -361,6 +361,13 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
     transform: scale(1);
   }
 }
+/* Mobile: portrait screens crop the 16:9 film too hard with cover (the logo
+   moment gets cut off the sides). Fit the whole frame and tighten the hero to
+   roughly the film's height, framed by the dark film-frame gradient. */
+@media (max-width: 700px) {
+  .hero { min-height: calc(56.25vw + 7rem); }
+  .hero__video { object-fit: contain; }
+}
 .hero__scrim {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
