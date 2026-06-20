@@ -997,12 +997,12 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
 
 /* ---------- Render slots (3D objects drop in here) ---------- */
 .render { position: relative; }
-.render::after {                 /* graceful glowing-orb placeholder until the PNG lands */
-  content: ""; position: absolute; inset: 6%; z-index: 0; border-radius: 50%; pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 38%, rgba(231,196,139,0.55), transparent 58%),
-    radial-gradient(circle, transparent 42%, var(--gold) 49%, var(--gold-soft) 53%, transparent 66%);
-  opacity: .9; filter: blur(1px);
+.render::after {                 /* refined eclipse-ring placeholder until the render lands */
+  content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: min(58%, 140px); aspect-ratio: 1; border-radius: 50%; z-index: 0; pointer-events: none;
+  background: radial-gradient(circle, rgba(212,163,97,0.10), transparent 62%);
+  border: 1.5px solid rgba(212,163,97,0.5);
+  box-shadow: 0 0 34px rgba(212,163,97,0.16), inset 0 0 22px rgba(212,163,97,0.12);
 }
 .render__img {
   position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain;
@@ -1033,10 +1033,12 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
     linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.015) 58%),
     var(--glass-bg);
 }
-[data-theme="dark"] .tile { border-color: rgba(240,235,225,0.18);
+[data-theme="dark"] .tile { border-color: rgba(240,235,225,0.20);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015) 58%), rgba(20,19,17,0.52);
   box-shadow: 0 26px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -22px 46px var(--glass-inner); }
-[data-theme="light"] .tile {
-  box-shadow: 0 24px 54px rgba(60,44,18,0.16), inset 0 1px 0 rgba(255,255,255,0.9); }
+[data-theme="light"] .tile { border-color: rgba(60,44,18,0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.5));
+  box-shadow: 0 26px 54px rgba(60,44,18,0.15), inset 0 1px 0 rgba(255,255,255,0.95); }
 .tile__eyebrow { font-size: .68rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); }
 .tile__title { font-family: var(--serif); font-weight: 400; line-height: 1.04; font-size: clamp(1.5rem, 3vw, 2.6rem); color: var(--text); margin-top: .5rem; }
 .tile__big { font-family: var(--serif); font-weight: 300; line-height: .98; font-size: clamp(2.4rem, 5vw, 4.6rem); color: var(--text); }
