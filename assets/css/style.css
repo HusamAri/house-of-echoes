@@ -326,6 +326,22 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
   object-fit: cover; object-position: center;
   filter: saturate(1) contrast(1.03);
 }
+/* Cinemascope reveal — the film opens from a central widescreen sliver to full
+   frame against the dark film-frame gradient (the "screen"), settling in with a
+   gentle push. Gated behind html.js + prefers-reduced-motion so the hero is never
+   left blank if JS is off or motion is reduced (clip-path applies only when we
+   know the .is-in reveal will fire). */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .hero__video {
+    clip-path: inset(48% 0 48% 0);
+    transform: scale(1.06);
+    transition: clip-path 1.5s var(--ease), transform 1.9s var(--ease);
+  }
+  html.js .hero.is-in .hero__video {
+    clip-path: inset(0 0 0 0);
+    transform: scale(1);
+  }
+}
 .hero__scrim {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
