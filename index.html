@@ -690,6 +690,11 @@
   <!-- Kısa Plan: click-to-load YouTube facades (keeps the page fast; no iframe until play) -->
   <script>
     (function () {
+      document.querySelectorAll(".render__img").forEach(function (img) {
+        var ok = function () { img.parentElement.classList.add("has-img"); };
+        if (img.complete && img.naturalWidth > 0) ok();
+        img.addEventListener("load", ok);
+      });
       document.querySelectorAll(".film__frame").forEach(function (btn) {
         btn.addEventListener("click", function () {
           if (btn.classList.contains("is-playing")) return;
