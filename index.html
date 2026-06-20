@@ -122,11 +122,12 @@
     <!-- BENTO OVERVIEW — liquid-glass board -->
     <section class="bento-sec" id="house" aria-label="House of Echoes — overview">
       <header class="bento-head">
-        <div>
-          <span class="pill reveal"><span class="pill__dot"></span>The House</span>
+        <div class="bento-head__lead">
+          <p class="section-label reveal"><span>The House</span></p>
           <h2 class="bento-head__title reveal-up"><span>Light, composed.</span></h2>
+          <span class="hud-readout" aria-hidden="true">REC · f/1.4 · 24mm · ISO 800 · 00:14:22:09</span>
         </div>
-        <a class="pill reveal" href="#contact" data-cursor="hover"><span>Start a film</span></a>
+        <a class="pill pill--cta reveal" href="#contact" data-cursor="hover"><span>Start a film</span><i class="pill__arr" aria-hidden="true">↗</i></a>
       </header>
 
       <div class="bento">
@@ -690,6 +691,11 @@
   <!-- Kısa Plan: click-to-load YouTube facades (keeps the page fast; no iframe until play) -->
   <script>
     (function () {
+      document.querySelectorAll(".render__img").forEach(function (img) {
+        var ok = function () { img.parentElement.classList.add("has-img"); };
+        if (img.complete && img.naturalWidth > 0) ok();
+        img.addEventListener("load", ok);
+      });
       document.querySelectorAll(".film__frame").forEach(function (btn) {
         btn.addEventListener("click", function () {
           if (btn.classList.contains("is-playing")) return;
