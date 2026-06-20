@@ -517,9 +517,23 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
   border-radius: 8px; overflow: hidden; transition: background .6s var(--ease);
 }
 .service__mark {
-  display:inline-block; width: 18px; height: 18px; border-radius:50%;
-  background: radial-gradient(circle, transparent 32%, var(--gold) 44%, var(--gold-soft) 50%, transparent 72%);
-  transition: transform .6s var(--ease);
+  display:grid; place-items:center; width: 50px; height: 50px; border-radius:14px;
+  color: var(--gold);                          /* drives the icon's currentColor stroke */
+  background: radial-gradient(120% 120% at 50% 0%, rgba(212,163,97,0.12), rgba(212,163,97,0.04));
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+  transition: transform .6s var(--ease), color .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
+}
+.service__mark .ico { width: 26px; height: 26px; display:block; }
+/* Cinematic "draw-on": grid-built line icons trace themselves when the card reveals.
+   Only hide the strokes when motion is allowed AND JS is present, so the icons are
+   fully drawn by default if anything fails. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .service .ico [pathLength] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  html.js .service.is-in .ico [pathLength] {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.1s var(--ease);
+  }
 }
 .service__name {
   position: relative; width: fit-content; font-family: var(--serif); font-weight: 400;
@@ -535,7 +549,7 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
   transition: opacity .6s var(--ease), transform .6s var(--ease);
 }
 .service:hover { background: linear-gradient(120deg, rgba(212,163,97,0.05), transparent 72%); }
-.service:hover .service__mark { transform: rotate(35deg) scale(1.1); }
+.service:hover .service__mark { transform: translateY(-3px); color: var(--gold-soft); border-color: rgba(212,163,97,0.5); box-shadow: inset 0 1px 0 var(--glass-hi), 0 0 24px rgba(212,163,97,0.18); }
 .service:hover .service__name { color: var(--gold-soft); }
 .service:hover .service__name::after { width: 100%; }
 .service:hover .service__desc { color: var(--text); }

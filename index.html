@@ -7,7 +7,7 @@
   <meta name="description" content="House of Echoes is a cinematic film studio led by Hakan Güneş. We make films for restaurants, hotels, brands, products and documentaries; images that linger after the frame." />
   <meta name="theme-color" content="#0D0D0D" />
   <!-- Apply theme before paint to avoid a flash -->
-  <script>(function(){try{var v=localStorage.getItem('hoe-theme');var p=(v==='light'||v==='dark'||v==='system')?v:'system';var d=p==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;var r=document.documentElement;r.setAttribute('data-theme-pref',p);r.setAttribute('data-theme',d);var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',d==='dark'?'#0D0D0D':'#E7E1D6');}catch(e){document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-theme-pref','system');}})();</script>
+  <script>(function(){try{var v=localStorage.getItem('hoe-theme');var p=(v==='light'||v==='dark'||v==='system')?v:'system';var d=p==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;var r=document.documentElement;r.classList.add('js');r.setAttribute('data-theme-pref',p);r.setAttribute('data-theme',d);var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',d==='dark'?'#0D0D0D':'#E7E1D6');}catch(e){document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-theme-pref','system');}})();</script>
 
   <!-- Open Graph -->
   <meta property="og:title" content="House of Echoes — Cinematic Studio" />
@@ -235,37 +235,61 @@
       </header>
       <ul class="services__list">
         <li class="service" data-cursor="hover">
-          <span class="service__mark" aria-hidden="true"></span>
+          <span class="service__mark" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <path pathLength="1" d="M8 22h8"/><path pathLength="1" d="M7 10h10"/><path pathLength="1" d="M12 15v7"/><path pathLength="1" d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>
+            </svg>
+          </span>
           <h3 class="service__name">Restaurant &amp; Culinary</h3>
           <p class="service__desc">Menu reveals, chef stories and atmosphere films that make a table irresistible.</p>
           <span class="service__halo" aria-hidden="true"></span>
         </li>
         <li class="service" data-cursor="hover">
-          <span class="service__mark" aria-hidden="true"></span>
+          <span class="service__mark" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <path pathLength="1" d="M3 20a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1Z"/><path pathLength="1" d="M20 16a8 8 0 1 0-16 0"/><path pathLength="1" d="M12 4v4"/><path pathLength="1" d="M10 4h4"/>
+            </svg>
+          </span>
           <h3 class="service__name">Hotel &amp; Hospitality</h3>
           <p class="service__desc">Property films and suite tours that sell a feeling, not just a room.</p>
           <span class="service__halo" aria-hidden="true"></span>
         </li>
         <li class="service" data-cursor="hover">
-          <span class="service__mark" aria-hidden="true"></span>
+          <span class="service__mark" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <path pathLength="1" d="m12.296 3.464 3.02 3.956"/><path pathLength="1" d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z"/><path pathLength="1" d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path pathLength="1" d="m6.18 5.276 3.1 3.899"/>
+            </svg>
+          </span>
           <h3 class="service__name">Promotional Films</h3>
           <p class="service__desc">Brand films and commercials built to move people, not just metrics.</p>
           <span class="service__halo" aria-hidden="true"></span>
         </li>
         <li class="service" data-cursor="hover">
-          <span class="service__mark" aria-hidden="true"></span>
+          <span class="service__mark" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <rect pathLength="1" width="18" height="18" x="3" y="3" rx="2"/><path pathLength="1" d="M7 3v18"/><path pathLength="1" d="M3 7.5h4"/><path pathLength="1" d="M3 12h18"/><path pathLength="1" d="M3 16.5h4"/><path pathLength="1" d="M17 3v18"/><path pathLength="1" d="M17 7.5h4"/><path pathLength="1" d="M17 16.5h4"/>
+            </svg>
+          </span>
           <h3 class="service__name">Documentary</h3>
           <p class="service__desc">Long-form storytelling for people, places and the work behind them.</p>
           <span class="service__halo" aria-hidden="true"></span>
         </li>
         <li class="service" data-cursor="hover">
-          <span class="service__mark" aria-hidden="true"></span>
+          <span class="service__mark" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <circle pathLength="1" cx="12" cy="12" r="10"/><path pathLength="1" d="m14.31 8 5.74 9.94"/><path pathLength="1" d="M9.69 8h11.48"/><path pathLength="1" d="m7.38 12 5.74-9.94"/><path pathLength="1" d="M9.69 16 3.95 6.06"/><path pathLength="1" d="M14.31 16H2.83"/><path pathLength="1" d="m16.62 12-5.74 9.94"/>
+            </svg>
+          </span>
           <h3 class="service__name">Product Films</h3>
           <p class="service__desc">Macro, tabletop and motion-control craft that elevates objects to icons.</p>
           <span class="service__halo" aria-hidden="true"></span>
         </li>
         <li class="service" data-cursor="hover">
-          <span class="service__mark" aria-hidden="true"></span>
+          <span class="service__mark" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <rect pathLength="1" width="14" height="20" x="5" y="2" rx="2" ry="2"/><path pathLength="1" d="M12 18h.01"/>
+            </svg>
+          </span>
           <h3 class="service__name">Social Media Content</h3>
           <p class="service__desc">Vertical-first series and campaigns engineered for reach and retention.</p>
           <span class="service__halo" aria-hidden="true"></span>
