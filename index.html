@@ -92,6 +92,7 @@
   </div>
 
   <main id="top">
+    <div class="deck" id="deck"><div class="deck__track" id="deckTrack">
 
     <!-- HERO -->
     <section class="hero" id="hero" data-player>
@@ -655,9 +656,8 @@
         </div>
       </div>
     </section>
-  </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (last slide) -->
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand logo logo--primary">
@@ -673,6 +673,23 @@
       <span>Designed in golden hour</span>
     </div>
   </footer>
+
+    </div><!-- /deck__track -->
+
+    <!-- Deck UI: viewfinder counter, progress, arrows, dots -->
+    <div class="deck-ui" aria-hidden="false">
+      <div class="deck-hud">
+        <span class="deck-hud__count" id="deckCounter">01 / 10</span>
+        <span class="deck-hud__sep">·</span>
+        <span class="deck-hud__label" id="deckLabel">Opening</span>
+      </div>
+      <button class="deck-arrow deck-arrow--prev" id="deckPrev" type="button" aria-label="Previous slide"><span>‹</span></button>
+      <button class="deck-arrow deck-arrow--next" id="deckNext" type="button" aria-label="Next slide"><span>›</span></button>
+      <div class="deck-dots" id="deckDots" role="tablist" aria-label="Slides"></div>
+      <div class="deck-progress" aria-hidden="true"><span id="deckProg"></span></div>
+    </div>
+    </div><!-- /deck -->
+  </main>
 
   <!-- Cinemascope showreel lightbox -->
   <div class="lightbox" id="reelLightbox" aria-hidden="true" role="dialog" aria-label="Showreel">
