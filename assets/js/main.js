@@ -398,9 +398,114 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && lb.classList.contains("is-open")) close(); });
   }
 
+  /* ---------- Horizontal slide deck ---------- */
+  function initDeck() {
+    const deck = $("#deck");
+    const track = $("#deckTrack");
+    if (!deck || !track) return false;
+
+    // Slides = direct section/footer children, minus decorative/duplicate ones.
+    const skip = ["marquee", "brand-strip", "hwork"];
+    let slides = Array.from(track.children).filter((el) => el.matches("section, footer"));
+    slides.forEach((s) => { if (skip.some((c) => s.classList.contains(c))) s.classList.add("deck-skip"); });
+    slides = slides.filter((s) => !s.classList.contains("deck-skip"));
+    if (slides.length < 2) return false;
+
+    document.body.classList.add("deck-on");
+    // Off-screen slides never trigger the scroll-reveal observer, so show all content up-front.
+    $$(".reveal, .reveal-up, .reveal-line, .scenes__title, .services__title, .process__title, .service, #hero, .manifesto__text")
+      .forEach((el) => el.classList.add("is-in", "is-lit"));
+
+    const dotsWrap = $("#deckDots");
+    const counter = $("#deckCounter");
+    const label = $("#deckLabel");
+    const prog = $("#deckProg");
+    let i = 0, lock = false;
+
+    const names = { hero: "Opening", manifesto: "Concept", house: "The House", reel: "Showreel",
+      kisaplan: "Kısa Plan", scenes: "Scenes", services: "Services", process: "Process",
+      studio: "Studio", contact: "Contact" };
+    function nameFor(s) { return names[s.id] || (s.classList.contains("footer") ? "Echoes" : (s.id || "")); }
+
+    if (dotsWrap) slides.forEach((s, idx) => {
+      const b = document.createElement("button");
+      b.className = "deck-dot"; b.type = "button";
+      b.setAttribute("aria-label", "Go to " + (nameFor(s) || "slide " + (idx + 1)));
+      b.addEventListener("click", () => go(idx));
+      dotsWrap.appendChild(b);
+    });
+    const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+    const pad = (n) => String(n).padStart(2, "0");
+
+    function render() {
+      slides.forEach((s, idx) => {
+        s.dataset.pos = idx === i ? "active" : (idx < i ? "left" : "right");
+        s.setAttribute("aria-hidden", idx === i ? "false" : "true");
+        s.style.pointerEvents = idx === i ? "" : "none";
+      });
+      dots.forEach((d, idx) => d.classList.toggle("is-on", idx === i));
+      if (counter) counter.textContent = pad(i + 1) + " / " + pad(slides.length);
+      if (label) label.textContent = nameFor(slides[i]);
+      if (prog) prog.style.transform = "scaleX(" + (i + 1) / slides.length + ")";
+      slides[i].scrollTop = 0;
+    }
+    function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); render(); }
+    const next = () => go(i + 1), prev = () => go(i - 1);
+
+    const pBtn = $("#deckPrev"), nBtn = $("#deckNext");
+    if (pBtn) pBtn.addEventListener("click", prev);
+    if (nBtn) nBtn.addEventListener("click", next);
+    window.addEventListener("keydown", (e) => {
+      if (e.target.matches && e.target.matches("input, textarea")) return;
+      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); next(); }
+      else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); prev(); }
+      else if (e.key === "Home") { go(0); } else if (e.key === "End") { go(slides.length - 1); }
+    });
+
+    // Wheel advances the deck, unless the active slide can still scroll internally.
+    deck.addEventListener("wheel", (e) => {
+      const s = slides[i];
+      const canScroll = s.scrollHeight > s.clientHeight + 2;
+      const atTop = s.scrollTop <= 0, atBot = s.scrollTop + s.clientHeight >= s.scrollHeight - 2;
+      const dy = e.deltaY, dx = e.deltaX;
+      if (canScroll && ((dy > 0 && !atBot) || (dy < 0 && !atTop))) return; // let the slide scroll
+      e.preventDefault();
+      if (lock) return;
+      if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return;
+      lock = true; setTimeout(() => (lock = false), 850);
+      (dy > 0 || dx > 0) ? next() : prev();
+    }, { passive: false });
+
+    // Touch swipe (horizontal intent only).
+    let tx = 0, ty = 0;
+    deck.addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+    deck.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+      if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.3) { dx < 0 ? next() : prev(); }
+    }, { passive: true });
+
+    // Anchor links jump to the matching slide.
+    $$('a[href^="#"]').forEach((a) => {
+      const href = a.getAttribute("href");
+      if (!href || href.length < 2) return;
+      a.addEventListener("click", (ev) => {
+        if (href === "#top") { ev.preventDefault(); document.body.classList.remove("menu-open"); go(0); return; }
+        const t = document.getElementById(href.slice(1));
+        if (!t) return;
+        const slide = t.closest("section, footer");
+        const idx = slides.indexOf(slide);
+        if (idx >= 0) { ev.preventDefault(); document.body.classList.remove("menu-open"); go(idx); }
+      });
+    });
+
+    render();
+    return true;
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
-    initSmoothScroll();
+    const deckOn = !!document.getElementById("deck");
+    if (!deckOn) initSmoothScroll();
     initTheme();
     initThemeControls();
     initHeroVideo();
@@ -409,11 +514,15 @@
     initMagnetic();
     initNav();
     initMenu();
-    initReveals();
+    if (deckOn) {
+      initDeck();
+    } else {
+      initReveals();
+      initParallax();
+      initHorizontalWork();
+    }
     initManifesto();
     initTaglines();
-    initParallax();
-    initHorizontalWork();
     initHoverVideo();
     initReelLightbox();
   });

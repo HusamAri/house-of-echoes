@@ -1101,6 +1101,68 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
 }
 
 /* =========================================================
+   HORIZONTAL SLIDE DECK  (JS-activated; no-JS = vertical fallback)
+   ========================================================= */
+body.deck-on { overflow: hidden; height: 100vh; }
+body.deck-on .deck { position: fixed; inset: 0; z-index: 1; perspective: 2200px; }
+.deck__track { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+body.deck-on .deck__track > section,
+body.deck-on .deck__track > footer {
+  position: absolute; inset: 0; height: 100dvh;
+  margin-left: auto; margin-right: auto;            /* centre the max-width sections */
+  overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
+  display: flex; flex-direction: column; justify-content: center; justify-content: safe center;
+  padding-top: clamp(5.5rem, 13vh, 9rem);           /* clear the floating nav */
+  opacity: 0; pointer-events: none;
+  transition: transform .85s cubic-bezier(.7,0,.2,1), opacity .7s var(--ease);
+  backface-visibility: hidden; will-change: transform, opacity;
+}
+body.deck-on .deck-skip { display: none !important; }
+body.deck-on #hero { padding-top: 0; }              /* hero film is full-bleed */
+
+body.deck-on .deck__track > [data-pos="active"] { opacity: 1; transform: none; pointer-events: auto; z-index: 3; }
+body.deck-on .deck__track > [data-pos="left"]  { transform: translateX(-58%) rotateY(40deg) scale(.8); z-index: 1; }
+body.deck-on .deck__track > [data-pos="right"] { transform: translateX(58%) rotateY(-40deg) scale(.8); z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  body.deck-on .deck__track > section, body.deck-on .deck__track > footer { transition: opacity .35s ease; }
+  body.deck-on .deck__track > [data-pos="left"]  { transform: translateX(-100%); }
+  body.deck-on .deck__track > [data-pos="right"] { transform: translateX(100%); }
+}
+
+/* Deck UI */
+.deck-ui { position: fixed; inset: 0; z-index: 6500; pointer-events: none; }
+.deck-ui > * { pointer-events: auto; }
+.deck-hud { position: absolute; top: clamp(5.6rem, 9vh, 7rem); left: clamp(1.25rem, 5vw, 3rem);
+  display: inline-flex; align-items: center; gap: .55rem; font-family: var(--mono); font-size: .64rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--text-dim);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.35); }
+.deck-hud__count { color: var(--gold); }
+.deck-hud__sep { opacity: .5; }
+.deck-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.7rem; line-height: 1; cursor: pointer; color: var(--text);
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-hi);
+  transition: transform .3s var(--ease), border-color .3s var(--ease); }
+.deck-arrow span { margin-top: -4px; }
+.deck-arrow--prev { left: clamp(.7rem, 2vw, 2rem); }
+.deck-arrow--next { right: clamp(.7rem, 2vw, 2rem); }
+.deck-arrow:hover { border-color: var(--glass-rim); transform: translateY(-50%) scale(1.08); }
+.deck-dots { position: absolute; left: 50%; transform: translateX(-50%); bottom: clamp(1.1rem, 3.2vh, 1.8rem);
+  display: flex; gap: .5rem; }
+.deck-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--glass-border); background: transparent;
+  cursor: pointer; padding: 0; transition: background .3s, border-color .3s, transform .3s; }
+.deck-dot.is-on { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 10px var(--gold); transform: scale(1.15); }
+.deck-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--line); }
+.deck-progress span { display: block; height: 100%; transform-origin: left; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--gold-soft), var(--gold)); transition: transform .85s var(--ease); }
+@media (max-width: 640px) {
+  .deck-arrow { width: 42px; height: 42px; font-size: 1.4rem; }
+  .deck-hud { font-size: .58rem; }
+}
+
+/* =========================================================
    KISA PLAN — short-film series (lazy YouTube facades)
    ========================================================= */
 .films { max-width: var(--maxw); margin: 0 auto; padding: clamp(4rem,9vw,9rem) var(--pad); }
