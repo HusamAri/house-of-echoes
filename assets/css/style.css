@@ -1124,6 +1124,22 @@ body.deck-on #hero { padding-top: 0; }              /* hero film is full-bleed *
 body.deck-on .deck__track > [data-pos="active"] { opacity: 1; transform: none; pointer-events: auto; z-index: 3; }
 body.deck-on .deck__track > [data-pos="left"]  { transform: translateX(-58%) rotateY(40deg) scale(.8); z-index: 1; }
 body.deck-on .deck__track > [data-pos="right"] { transform: translateX(58%) rotateY(-40deg) scale(.8); z-index: 1; }
+
+/* Per-slide transition "approach" (each slide enters differently) */
+@media (prefers-reduced-motion: no-preference) {
+  /* cube — turns in from a hinge like a box face */
+  body.deck-on .deck__track > [data-fx="cube"][data-pos="left"]  { transform-origin: right center; transform: translateX(-100%) rotateY(62deg) scale(.96); }
+  body.deck-on .deck__track > [data-fx="cube"][data-pos="right"] { transform-origin: left center;  transform: translateX(100%) rotateY(-62deg) scale(.96); }
+  /* zoom — dolly in from depth */
+  body.deck-on .deck__track > [data-fx="zoom"][data-pos="left"],
+  body.deck-on .deck__track > [data-fx="zoom"][data-pos="right"] { transform: scale(.5) translateZ(-340px); }
+  /* rise — lifts up into frame */
+  body.deck-on .deck__track > [data-fx="rise"][data-pos="left"],
+  body.deck-on .deck__track > [data-fx="rise"][data-pos="right"] { transform: translateY(66%) scale(.9); }
+  /* fade — cinematic dissolve (a soft push, no rotate) */
+  body.deck-on .deck__track > [data-fx="fade"][data-pos="left"],
+  body.deck-on .deck__track > [data-fx="fade"][data-pos="right"] { transform: scale(1.04); }
+}
 @media (prefers-reduced-motion: reduce) {
   body.deck-on .deck__track > section, body.deck-on .deck__track > footer { transition: opacity .35s ease; }
   body.deck-on .deck__track > [data-pos="left"]  { transform: translateX(-100%); }
