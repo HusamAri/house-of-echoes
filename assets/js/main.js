@@ -411,6 +411,12 @@
     slides = slides.filter((s) => !s.classList.contains("deck-skip"));
     if (slides.length < 2) return false;
 
+    // Each slide gets its own transition "approach" so the deck never repeats itself.
+    const fxMap = { hero: "fade", manifesto: "rise", house: "flip", reel: "zoom",
+      kisaplan: "flip", scenes: "rise", services: "cube", process: "zoom",
+      studio: "flip", contact: "rise" };
+    slides.forEach((s) => { s.dataset.fx = fxMap[s.id] || (s.classList.contains("footer") ? "fade" : "flip"); });
+
     document.body.classList.add("deck-on");
     // Off-screen slides never trigger the scroll-reveal observer, so show all content up-front.
     $$(".reveal, .reveal-up, .reveal-line, .scenes__title, .services__title, .process__title, .service, #hero, .manifesto__text")
