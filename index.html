@@ -200,18 +200,29 @@
 
     <!-- SHOWREEL -->
     <section class="reel" id="reel">
-      <div class="reel__frame reveal-up" data-cursor="hover" data-parallax="0.06" data-player>
-        <div class="reel__scene reel__scene--golden"></div>
-        <div class="reel__bars" aria-hidden="true"><span></span><span></span></div>
-        <button class="reel__play" aria-label="Play showreel">
-          <span class="reel__play-ring"></span>
-          <span class="reel__play-tri"></span>
-        </button>
+      <header class="reel__head">
+        <p class="section-label reveal"><span>Showreel</span></p>
+        <h2 class="reel__title reveal-up"><span>In rotation.</span></h2>
+      </header>
+      <div class="reel__frame reveal-up" data-cursor="hover" role="button" tabindex="0" aria-label="Play the 2026 showreel">
+        <div class="cube-stage">
+          <div class="cube" aria-hidden="true">
+            <span class="cube__face cube__face--front"><img loading="lazy" src="https://i.ytimg.com/vi/eEWhlL26VYA/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/eEWhlL26VYA/hqdefault.jpg" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" /></span>
+            <span class="cube__face cube__face--right"><img loading="lazy" src="https://i.ytimg.com/vi/ViNOSOd5z84/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/ViNOSOd5z84/hqdefault.jpg" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" /></span>
+            <span class="cube__face cube__face--back"><img loading="lazy" src="https://i.ytimg.com/vi/_t3MFDwmBp0/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/_t3MFDwmBp0/hqdefault.jpg" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" /></span>
+            <span class="cube__face cube__face--left"><img loading="lazy" src="https://i.ytimg.com/vi/S1tVCFPNNak/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/S1tVCFPNNak/hqdefault.jpg" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" /></span>
+            <span class="cube__face cube__face--top"></span>
+            <span class="cube__face cube__face--bottom"></span>
+          </div>
+          <button class="reel__play" aria-label="Play showreel">
+            <span class="reel__play-ring"></span>
+            <span class="reel__play-tri"></span>
+          </button>
+        </div>
         <div class="reel__meta">
           <span>Showreel 2026</span>
           <span>02:14</span>
         </div>
-        <div class="reel__caption">A year of light, in selected frames</div>
       </div>
     </section>
 
