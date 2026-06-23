@@ -280,10 +280,17 @@
     const toggle = $("#menuToggle");
     const overlay = $("#overlay");
     if (!toggle || !overlay) return;
-    function close() { document.body.classList.remove("menu-open"); toggle.setAttribute("aria-label", "Open menu"); scrollLock(false); }
+    // Keep the closed overlay out of the tab order + a11y tree (it's aria-hidden).
+    const setState = (open) => {
+      overlay.setAttribute("aria-hidden", open ? "false" : "true");
+      if (open) overlay.removeAttribute("inert"); else overlay.setAttribute("inert", "");
+    };
+    setState(false);
+    function close() { document.body.classList.remove("menu-open"); toggle.setAttribute("aria-label", "Open menu"); setState(false); scrollLock(false); }
     toggle.addEventListener("click", () => {
       const open = document.body.classList.toggle("menu-open");
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      setState(open);
       scrollLock(open);
     });
     $$("a", overlay).forEach((a) => a.addEventListener("click", close));

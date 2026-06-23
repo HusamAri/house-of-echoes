@@ -472,6 +472,7 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
   font-size: clamp(1.8rem, 6vw, 5rem); max-width: 16ch;
 }
 .manifesto__text .word { display: inline-block; opacity: 0.55; transition: opacity .6s var(--ease); }
+.manifesto__text .word.muted { font-style: italic; }
 .manifesto__text.is-lit .word { opacity: 1; }
 .manifesto__text.is-lit .word.muted { opacity: 0.72; }
 .manifesto__og { font-family: var(--serif); font-style: italic; color: var(--teal); font-size: clamp(1rem,2vw,1.4rem); align-self: flex-end; max-width: 30ch; text-align: right; }
