@@ -508,10 +508,53 @@
     return true;
   }
 
+  /* ---------- Horizontal rails (content groups slide sideways) ---------- */
+  function initRails() {
+    $$(".rail-wrap").forEach((wrap) => {
+      const rail = wrap.querySelector(".rail");
+      if (!rail) return;
+      const isFlow = rail.classList.contains("rail--flow");
+
+      const mk = (dir, label, glyph) => {
+        const b = document.createElement("button");
+        b.className = "rail-arrow rail-arrow--" + dir; b.type = "button";
+        b.setAttribute("aria-label", label); b.innerHTML = "<span>" + glyph + "</span>";
+        b.addEventListener("click", () => {
+          const card = rail.querySelector(":scope > *");
+          const gap = parseFloat(getComputedStyle(rail).columnGap) || 16;
+          const step = card ? card.getBoundingClientRect().width + gap : rail.clientWidth * 0.8;
+          rail.scrollBy({ left: dir === "next" ? step : -step, behavior: "smooth" });
+        });
+        wrap.appendChild(b); return b;
+      };
+      const prev = mk("prev", "Scroll left", "‹"), next = mk("next", "Scroll right", "›");
+
+      const updateArrows = () => {
+        prev.disabled = rail.scrollLeft <= 4;
+        next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+      };
+      const flow = () => {
+        if (!isFlow) return;
+        const mid = rail.scrollLeft + rail.clientWidth / 2;
+        $$(":scope > *", rail).forEach((c) => {
+          const cmid = c.offsetLeft + c.offsetWidth / 2;
+          const d = Math.min(1, Math.abs(cmid - mid) / (rail.clientWidth * 0.6));
+          c.style.setProperty("--d", d.toFixed(3));
+        });
+      };
+      let raf = 0;
+      rail.addEventListener("scroll", () => {
+        updateArrows();
+        if (isFlow) { cancelAnimationFrame(raf); raf = requestAnimationFrame(flow); }
+      }, { passive: true });
+      window.addEventListener("resize", () => { updateArrows(); flow(); });
+      updateArrows(); flow();
+    });
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
-    const deckOn = !!document.getElementById("deck");
-    if (!deckOn) initSmoothScroll();
+    initSmoothScroll();
     initTheme();
     initThemeControls();
     initHeroVideo();
@@ -520,13 +563,10 @@
     initMagnetic();
     initNav();
     initMenu();
-    if (deckOn) {
-      initDeck();
-    } else {
-      initReveals();
-      initParallax();
-      initHorizontalWork();
-    }
+    initReveals();
+    initParallax();
+    initHorizontalWork();
+    initRails();
     initManifesto();
     initTaglines();
     initHoverVideo();

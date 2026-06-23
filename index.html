@@ -92,7 +92,6 @@
   </div>
 
   <main id="top">
-    <div class="deck" id="deck"><div class="deck__track" id="deckTrack">
 
     <!-- HERO -->
     <section class="hero" id="hero" data-player>
@@ -202,27 +201,20 @@
     <section class="reel" id="reel">
       <header class="reel__head">
         <p class="section-label reveal"><span>Showreel</span></p>
-        <h2 class="reel__title reveal-up"><span>In rotation.</span></h2>
+        <h2 class="reel__title reveal-up"><span>A year of light.</span></h2>
       </header>
-      <div class="reel__frame reveal-up" data-cursor="hover" role="button" tabindex="0" aria-label="Play the 2026 showreel">
-        <div class="cube-stage">
-          <div class="cube" aria-hidden="true">
-            <span class="cube__face cube__face--front"><img loading="lazy" src="https://i.ytimg.com/vi/eEWhlL26VYA/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/eEWhlL26VYA/hqdefault.jpg" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" /></span>
-            <span class="cube__face cube__face--right"><img loading="lazy" src="https://i.ytimg.com/vi/ViNOSOd5z84/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/ViNOSOd5z84/hqdefault.jpg" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" /></span>
-            <span class="cube__face cube__face--back"><img loading="lazy" src="https://i.ytimg.com/vi/_t3MFDwmBp0/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/_t3MFDwmBp0/hqdefault.jpg" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" /></span>
-            <span class="cube__face cube__face--left"><img loading="lazy" src="https://i.ytimg.com/vi/S1tVCFPNNak/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/S1tVCFPNNak/hqdefault.jpg" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" /></span>
-            <span class="cube__face cube__face--top"></span>
-            <span class="cube__face cube__face--bottom"></span>
-          </div>
-          <button class="reel__play" aria-label="Play showreel">
-            <span class="reel__play-ring"></span>
-            <span class="reel__play-tri"></span>
-          </button>
-        </div>
+      <div class="reel__frame reveal-up" data-cursor="hover" data-parallax="0.05" role="button" tabindex="0" aria-label="Play the 2026 showreel">
+        <div class="reel__scene reel__scene--golden"></div>
+        <div class="reel__bars" aria-hidden="true"><span></span><span></span></div>
+        <button class="reel__play" aria-label="Play showreel">
+          <span class="reel__play-ring"></span>
+          <span class="reel__play-tri"></span>
+        </button>
         <div class="reel__meta">
           <span>Showreel 2026</span>
           <span>02:14</span>
         </div>
+        <div class="reel__caption">A year of light, in selected frames</div>
       </div>
     </section>
 
@@ -234,7 +226,7 @@
         <p class="films__lead reveal"><span>A short-film series — small situations, fully composed. Each chapter is a single feeling held in a single frame; press play to step inside.</span></p>
       </header>
 
-      <ol class="films__grid">
+      <div class="rail-wrap"><ol class="films__grid rail rail--slide">
         <li class="film reveal-up">
           <button class="film__frame" type="button" data-yt="lDz8FHSSSeM" data-cursor="hover" aria-label="Play Arkadaşlık — Kısa Plan">
             <img class="film__thumb" loading="lazy" decoding="async" width="1280" height="720"
@@ -330,7 +322,7 @@
             <span class="film__sub">Biathlon</span>
           </div>
         </li>
-      </ol>
+      </ol></div>
     </section>
 
     <!-- SCENES — cinematic scenes with their stories -->
@@ -340,6 +332,7 @@
         <h2 class="scenes__title reveal-up"><span>Every frame<br/>carries a story.</span></h2>
       </header>
 
+      <div class="rail-wrap"><div class="rail rail--flow">
       <!-- Scene 01 Restaurant -->
       <article class="scene" id="work">
         <div class="scene__media reveal-up" data-parallax="0.05" data-player>
@@ -423,6 +416,7 @@
           <a href="#contact" class="scene__link reveal" data-cursor="hover"><span>View the film</span><span class="scene__arrow">→</span></a>
         </div>
       </article>
+      </div></div>
     </section>
 
     <!-- SERVICES -->
@@ -431,7 +425,7 @@
         <p class="section-label reveal"><span>Full-Service Studio</span></p>
         <h2 class="services__title reveal-up"><span>From the first frame<br/>to the final echo.</span></h2>
       </header>
-      <ul class="services__list">
+      <div class="rail-wrap"><ul class="services__list rail rail--peek">
         <li class="service" data-cursor="hover">
           <span class="service__mark" aria-hidden="true">
             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
@@ -492,7 +486,7 @@
           <p class="service__desc">Vertical-first series and campaigns engineered for reach and retention.</p>
           <span class="service__halo" aria-hidden="true"></span>
         </li>
-      </ul>
+      </ul></div>
       <p class="services__capabilities reveal">
         <span>Direction</span><span>Cinematography</span><span>Editing</span><span>Color Grading</span><span>Aerial / Drone</span><span>Sound Design</span><span>Creative Strategy</span>
       </p>
@@ -578,7 +572,7 @@
         <p class="section-label reveal"><span>The Approach</span></p>
         <h2 class="process__title reveal-up"><span>Four movements,<br/>one echo.</span></h2>
       </header>
-      <ol class="process__list">
+      <div class="rail-wrap"><ol class="process__list rail rail--steps">
         <li class="process__step reveal-up">
           <span class="process__num">01</span>
           <h3>Listen</h3>
@@ -599,7 +593,7 @@
           <h3>Echo</h3>
           <p>Edit, color and sound, finished to linger. Delivered for screen, cinema and every feed.</p>
         </li>
-      </ol>
+      </ol></div>
     </section>
 
     <!-- BRAND STRIP -->
@@ -667,8 +661,9 @@
         </div>
       </div>
     </section>
+  </main>
 
-  <!-- FOOTER (last slide) -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand logo logo--primary">
@@ -684,23 +679,6 @@
       <span>Designed in golden hour</span>
     </div>
   </footer>
-
-    </div><!-- /deck__track -->
-
-    <!-- Deck UI: viewfinder counter, progress, arrows, dots -->
-    <div class="deck-ui" aria-hidden="false">
-      <div class="deck-hud">
-        <span class="deck-hud__count" id="deckCounter">01 / 10</span>
-        <span class="deck-hud__sep">·</span>
-        <span class="deck-hud__label" id="deckLabel">Opening</span>
-      </div>
-      <button class="deck-arrow deck-arrow--prev" id="deckPrev" type="button" aria-label="Previous slide"><span>‹</span></button>
-      <button class="deck-arrow deck-arrow--next" id="deckNext" type="button" aria-label="Next slide"><span>›</span></button>
-      <div class="deck-dots" id="deckDots" role="tablist" aria-label="Slides"></div>
-      <div class="deck-progress" aria-hidden="true"><span id="deckProg"></span></div>
-    </div>
-    </div><!-- /deck -->
-  </main>
 
   <!-- Cinemascope showreel lightbox -->
   <div class="lightbox" id="reelLightbox" aria-hidden="true" role="dialog" aria-label="Showreel">
