@@ -513,6 +513,13 @@
     $$(".rail-wrap").forEach((wrap) => {
       const rail = wrap.querySelector(".rail");
       if (!rail) return;
+      // keyboard access for the scrollable region (WCAG)
+      if (!rail.hasAttribute("tabindex")) rail.tabIndex = 0;
+      if (!rail.hasAttribute("aria-label")) rail.setAttribute("aria-label", "Scrollable gallery — use arrow keys");
+      rail.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") { e.preventDefault(); rail.scrollBy({ left: rail.clientWidth * 0.7, behavior: "smooth" }); }
+        else if (e.key === "ArrowLeft") { e.preventDefault(); rail.scrollBy({ left: -rail.clientWidth * 0.7, behavior: "smooth" }); }
+      });
       const isFlow = rail.classList.contains("rail--flow");
 
       const mk = (dir, label, glyph) => {
