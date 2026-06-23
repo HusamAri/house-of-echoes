@@ -471,10 +471,9 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
   font-family: var(--serif); font-weight: 400; line-height: 1.22; letter-spacing: 0.005em;
   font-size: clamp(1.8rem, 6vw, 5rem); max-width: 16ch;
 }
-.manifesto__text .word { display: inline-block; opacity: 0.12; transition: opacity .6s var(--ease); }
-.manifesto__text .word.muted { color: var(--text-dim); }
+.manifesto__text .word { display: inline-block; opacity: 0.55; transition: opacity .6s var(--ease); }
 .manifesto__text.is-lit .word { opacity: 1; }
-.manifesto__text.is-lit .word.muted { opacity: 0.5; }
+.manifesto__text.is-lit .word.muted { opacity: 0.72; }
 .manifesto__og { font-family: var(--serif); font-style: italic; color: var(--teal); font-size: clamp(1rem,2vw,1.4rem); align-self: flex-end; max-width: 30ch; text-align: right; }
 
 /* =========================================================
@@ -1220,6 +1219,7 @@ body.deck-on #reel { align-items: center; gap: clamp(1.8rem,4vh,3rem); }
 }
 .rail::-webkit-scrollbar { display: none; }
 .rail > * { flex: 0 0 auto; scroll-snap-align: center; }
+.rail:focus-visible { outline: 2px solid var(--gold); outline-offset: -3px; border-radius: 8px; }
 .films__grid.rail, .services__list.rail, .process__list.rail { display: flex; grid-template-columns: none; }
 
 /* per-rail card widths — each group slides a little differently */
