@@ -110,6 +110,11 @@ body {
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
+/* Decorative props bleed off-frame; clip the horizontal overflow at the page
+   box. `clip` (not `hidden`) creates no scroll container, so the hwork sticky
+   pin and Lenis smooth-scroll are untouched. Body's overflow-x:hidden remains
+   a legacy fallback for engines without `clip`. */
+main { overflow-x: clip; }
 
 a { color: inherit; text-decoration: none; }
 img, svg { display: block; max-width: 100%; }
@@ -482,7 +487,7 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
 /* =========================================================
    SHOWREEL
    ========================================================= */
-.reel { padding: clamp(2rem,6vw,5rem) var(--pad) clamp(5rem,10vw,9rem); max-width: var(--maxw); margin: 0 auto; }
+.reel { position: relative; isolation: isolate; padding: clamp(2rem,6vw,5rem) var(--pad) clamp(5rem,10vw,9rem); max-width: var(--maxw); margin: 0 auto; }
 .reel__frame {
   position: relative; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden;
   display: grid; place-items: center; box-shadow: 0 40px 120px rgba(0,0,0,0.6);
@@ -554,7 +559,7 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
 /* =========================================================
    SERVICES
    ========================================================= */
-.services { max-width: var(--maxw); margin: 0 auto; padding: clamp(5rem,10vw,10rem) var(--pad); }
+.services { position: relative; isolation: isolate; max-width: var(--maxw); margin: 0 auto; padding: clamp(5rem,10vw,10rem) var(--pad); }
 .services__head { display:flex; flex-direction:column; gap:1.6rem; margin-bottom: clamp(2.5rem,6vw,5rem); }
 .services__list {
   list-style:none; display:grid; grid-template-columns: repeat(2,1fr);
@@ -672,7 +677,7 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
 /* =========================================================
    PROCESS
    ========================================================= */
-.process { max-width: var(--maxw); margin: 0 auto; padding: clamp(5rem,10vw,10rem) var(--pad); }
+.process { position: relative; isolation: isolate; max-width: var(--maxw); margin: 0 auto; padding: clamp(5rem,10vw,10rem) var(--pad); }
 .process__head { display:flex; flex-direction:column; gap:1.6rem; margin-bottom: clamp(2.5rem,6vw,5rem); }
 .process__list { list-style:none; display:grid; grid-template-columns: repeat(4,1fr); gap: clamp(1.5rem,3vw,2.5rem); }
 .process__step { display:flex; flex-direction:column; gap:.9rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
@@ -685,7 +690,7 @@ body.menu-open .overlay__nav a { transform: translateY(0); opacity: 0.85; }
 /* =========================================================
    STUDIO
    ========================================================= */
-.studio { max-width: var(--maxw); margin: 0 auto; padding: clamp(4rem,9vw,9rem) var(--pad);
+.studio { position: relative; isolation: isolate; max-width: var(--maxw); margin: 0 auto; padding: clamp(4rem,9vw,9rem) var(--pad);
   display:grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2.5rem,6vw,6rem); align-items: center; }
 .studio__portrait { position:relative; aspect-ratio: 3/4; border-radius:4px; overflow:hidden; box-shadow: 0 40px 110px rgba(0,0,0,0.55); }
 .studio__photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%;
@@ -1359,3 +1364,55 @@ body.deck-on #reel { align-items: center; gap: clamp(1.8rem,4vh,3rem); }
 .lightbox__close span:last-child  { transform: translate(-50%,-50%) rotate(-45deg); }
 .lightbox__close:hover span { background: var(--gold); }
 @media (prefers-reduced-motion: reduce) { .lightbox__bar { transition: none; } }
+
+/* =========================================================
+   DECOR PROPS — cinema / photography cut-out objects
+   Faint, off-frame, parallax-drifting objects that tie each
+   section to the craft. Decorative only: aria-hidden,
+   pointer-events:none, painted behind all text (z-index:-1
+   inside the host's isolated stacking context) so contrast
+   is never touched.
+   ========================================================= */
+.prop {
+  position: absolute; z-index: -1;
+  width: var(--prop-w, clamp(150px,18vw,300px)); height: auto;
+  opacity: var(--op, 0.1);
+  pointer-events: none; user-select: none; -webkit-user-select: none;
+  transform: var(--prop-rot, none);            /* resting + reduced-motion rotation */
+  filter: drop-shadow(0 20px 44px rgba(0,0,0,0.5));
+  will-change: transform;
+}
+/* Light theme: cream is unforgiving — dim further + warm, soft shadow so
+   the prop reads as a watermark, never as a smudge. */
+[data-theme="light"] .prop {
+  opacity: calc(var(--op, 0.1) * 0.6);
+  filter: drop-shadow(0 14px 30px rgba(60,44,18,0.15));
+}
+
+/* A · cinema camera → Studio */
+.prop--camera    { top: -4%;   right: -6%; --prop-w: clamp(170px,21vw,330px); --op: 0.13; --prop-rot: rotate(-6deg); }
+/* B · film reel → Showreel */
+.prop--reel      { bottom: -12%; left: -7%; --prop-w: clamp(150px,19vw,300px); --op: 0.10; --prop-rot: rotate(8deg); }
+/* C · clapperboard → Process */
+.prop--clapper   { top: 0%;    left: -5%; --prop-w: clamp(140px,16vw,250px); --op: 0.09; --prop-rot: rotate(-10deg); }
+/* D · cinema lens → Services */
+.prop--lens      { top: 7%;    right: -7%; --prop-w: clamp(140px,17vw,280px); --op: 0.10; --prop-rot: rotate(4deg); }
+/* E · celluloid filmstrip → Manifesto */
+.prop--filmstrip { top: -6%;   left: -3%; --prop-w: clamp(120px,15vw,230px); --op: 0.11; --prop-rot: rotate(-12deg); }
+/* F · fresnel spotlight → Bento */
+.prop--fresnel   { top: -12%;  right: 3%; --prop-w: clamp(150px,17vw,290px); --op: 0.11; --prop-rot: rotate(14deg); }
+
+/* Tablet — thin the field so no single viewport holds a crowd */
+@media (max-width: 768px) {
+  .prop--clapper, .prop--lens, .prop--fresnel { display: none; }
+  .prop--camera    { --prop-w: clamp(130px,30vw,180px); --op: 0.10; right: -14%; }
+  .prop--reel      { --prop-w: clamp(120px,28vw,170px); --op: 0.08; left: -16%; }
+  .prop--filmstrip { --prop-w: clamp(100px,24vw,150px); --op: 0.09; left: -11%; }
+}
+/* Phone — the layout is dense; drop every prop */
+@media (max-width: 480px) {
+  .prop { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prop { will-change: auto; }
+}
